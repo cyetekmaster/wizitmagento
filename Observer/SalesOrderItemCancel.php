@@ -1,9 +1,9 @@
 <?php
-namespace Wizpay\Wizpay\Observer;
+namespace Wizit\Wizit\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 
 class SalesOrderItemCancel implements ObserverInterface
 {
@@ -33,7 +33,7 @@ class SalesOrderItemCancel implements ObserverInterface
         $order = $observer->getOrder();
         $payment = $order->getPayment();
 
-        if ($payment->getMethod() == 'wizpay') {
+        if ($payment->getMethod() == 'wizit') {
 
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $orderId = $order->getEntityId();
@@ -41,7 +41,7 @@ class SalesOrderItemCancel implements ObserverInterface
             $additionalInformation = $order->getPayment()->getAdditionalInformation();
 
             $apiOrderId = $additionalInformation['transactionId'];
-            $wz_api_key = $this->helper->getConfig('payment/wizpay/api_key');
+            $wz_api_key = $this->helper->getConfig('payment/wizit/api_key');
             
             $wzresponse = $this->helper->orderVoidApi($wz_api_key, $apiOrderId); // phpcs:ignore
 
@@ -56,7 +56,7 @@ class SalesOrderItemCancel implements ObserverInterface
 
                     $order->addStatusToHistory(
                         'canceled',
-                        'Wizpay Payment Cancel Authorised. Wizpay Transaction ID (' . $apiOrderId . ')',
+                        'Wizit Payment Cancel Authorised. Wizit Transaction ID (' . $apiOrderId . ')',
                         false
                     );
 

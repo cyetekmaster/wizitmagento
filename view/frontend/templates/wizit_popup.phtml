@@ -1,6 +1,6 @@
 
 <style>
-.wizpay-popup-body-content iframe{
+.wizit-popup-body-content iframe{
     width: 100%;
     min-height: 920px;
 }
@@ -9,9 +9,9 @@
 
 
 
-<div id="wizpay-modal-content">
-    <div class="modal-body-content wizpay-popup-body-content">
-        <iframe id="wizpay-popup-iframe" title="Terms and Conditions">
+<div id="wizit-modal-content">
+    <div class="modal-body-content wizit-popup-body-content">
+        <iframe id="wizit-popup-iframe" title="Terms and Conditions">
         </iframe>
     </div>    
 </div>
@@ -32,19 +32,19 @@
                 class: '',
                 click: function () {
                     // unload iframe
-                    document.getElementById('wizpay-popup-iframe').setAttribute("src","");
+                    document.getElementById('wizit-popup-iframe').setAttribute("src","");
                     // close modal
                     this.closeModal();
                 }
             }]
         };
 
-        var popup = modal(options, $('#wizpay-modal-content'));
-        $(".wizpay-learn-more-popup-link").click(function() {
+        var popup = modal(options, $('#wizit-modal-content'));
+        $(".wizit-learn-more-popup-link").click(function() {
             // set iframe url
-            document.getElementById('wizpay-popup-iframe').setAttribute("src","https://info.wizpay.com.au/HowItWorks/HowItWorks.html");
+            document.getElementById('wizit-popup-iframe').setAttribute("src","https://info.wizit.com.au/HowItWorks/HowItWorks.html");
             // load modal
-            $('#wizpay-modal-content').modal('openModal');
+            $('#wizit-modal-content').modal('openModal');
         });
     });
 </script>

@@ -7,7 +7,7 @@
  * @link
  */
 
-namespace Wizpay\Wizpay\Controller\Index;
+namespace Wizit\Wizit\Controller\Index;
 
 class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
@@ -23,7 +23,7 @@ class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
     private $logger;
     private $quoteFactory;
     private $paymentDataObjectFactory;
-    private $wizpay_data_helper;
+    private $wizit_data_helper;
     private $order;
     private $checkoutHelper;
     private $invoiceSender;
@@ -33,13 +33,13 @@ class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
         \Magento\Checkout\Model\Session $session,
         \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Wizpay\Wizpay\Model\Payment\Capture\PlaceOrderProcessor $placeOrderProcessor,
+        \Wizit\Wizit\Model\Payment\Capture\PlaceOrderProcessor $placeOrderProcessor,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Quote\Model\QuoteFactory $quoteFactory,
         \Magento\Quote\Api\CartManagementInterface $cartManagement,
-        \Wizpay\Wizpay\Helper\Data $wizpay_helper,
+        \Wizit\Wizit\Helper\Data $wizit_helper,
         \Magento\Sales\Model\Order $order,
-        \Wizpay\Wizpay\Helper\Checkout $checkout,
+        \Wizit\Wizit\Helper\Checkout $checkout,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender
     ) {
         $this->request = $request;
@@ -50,7 +50,7 @@ class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
         $this->cartManagement = $cartManagement;
         $this->logger = $logger;
         $this->quoteFactory = $quoteFactory;
-        $this->wizpay_data_helper = $wizpay_helper;
+        $this->wizit_data_helper = $wizit_helper;
         $this->order = $order;
         $this->checkoutHelper = $checkout;
         $this->invoiceSender = $invoiceSender;
@@ -69,13 +69,13 @@ class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
         $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY Failed CALL BACK END<<<<<<<<<<<<<<<<<<<<-------------------");
 
 
-        $failed_url = $this->wizpay_data_helper->getConfig(
-            "payment/wizpay/failed_url"
+        $failed_url = $this->wizit_data_helper->getConfig(
+            "payment/wizit/failed_url"
         );
 
 
         $this->messageManager->addSuccessMessage(
-            (string) __("was rejected by Wizpay.")
+            (string) __("was rejected by Wizit.")
         );
 
         if (!empty($failed_url)){

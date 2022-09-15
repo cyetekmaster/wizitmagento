@@ -1,8 +1,8 @@
 <?php
 
-// namespace Wizpay\Wizpay\Observer;
+// namespace Wizit\Wizit\Observer;
 
-// use \Wizpay\Wizpay\Helper\Data;
+// use \Wizit\Wizit\Helper\Data;
 // use Magento\Framework\Event\Observer as EventObserver;
 // use Magento\Framework\Event\ObserverInterface;
 // use \Magento\Framework\App\Config\ScopeConfigInterface as scopeConfig;
@@ -62,11 +62,11 @@
 //         $method = $observer->getEvent()->getMethodInstance();
 //         $getStoreCurrency = $this->helper->getStoreCurrency();
         
-//         $merchant_min_amount = $this->scopeConfig->getValue('payment/wizpay/min_max_wizpay/merchant_min_amount', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); // phpcs:ignore
-//         $merchant_max_amount = $this->scopeConfig->getValue('payment/wizpay/min_max_wizpay/merchant_max_amount', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); // phpcs:ignore
+//         $merchant_min_amount = $this->scopeConfig->getValue('payment/wizit/min_max_wizit/merchant_min_amount', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); // phpcs:ignore
+//         $merchant_max_amount = $this->scopeConfig->getValue('payment/wizit/min_max_wizit/merchant_max_amount', \Magento\Store\Model\ScopeInterface::SCOPE_STORE); // phpcs:ignore
 
 //         if (!($sub_totalamount >= $merchant_min_amount && $sub_totalamount <= $merchant_max_amount)) {
-//             if ($code == 'wizpay') {
+//             if ($code == 'wizit') {
 
 //                 $checkResult = $observer->getEvent()->getResult();
 //                 $checkResult->setData('is_available', false);

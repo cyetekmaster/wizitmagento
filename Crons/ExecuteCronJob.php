@@ -1,7 +1,7 @@
 <?php
-namespace Wizpay\Wizpay\Crons;
+namespace Wizit\Wizit\Crons;
 
-use Wizpay\Wizpay\Helper\Data;
+use Wizit\Wizit\Helper\Data;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
@@ -29,9 +29,9 @@ class ExecuteCronJob
     public function execute()
     {
 
-        $get_api_key = $this->helper->getConfig('payment/wizpay/api_key');
-        $oldwmin = $this->helper->getConfig('payment/wizpay/min_max_wizpay/wz_min_amount');
-        $oldwmax = $this->helper->getConfig('payment/wizpay/min_max_wizpay/wz_max_amount');
+        $get_api_key = $this->helper->getConfig('payment/wizit/api_key');
+        $oldwmin = $this->helper->getConfig('payment/wizit/min_max_wizit/wz_min_amount');
+        $oldwmax = $this->helper->getConfig('payment/wizit/min_max_wizit/wz_max_amount');
 
         if (!empty($oldwmin) && !empty($oldwmax)) {
 
@@ -44,13 +44,13 @@ class ExecuteCronJob
             } else {
 
                 $merchant_minimum_amount =
-                $this->helper->getConfig('payment/wizpay/min_max_wizpay/merchant_min_amount');
+                $this->helper->getConfig('payment/wizit/min_max_wizit/merchant_min_amount');
                 $merchant_maximum_amount =
-                $this->helper->getConfig('payment/wizpay/min_max_wizpay/merchant_max_amount');
+                $this->helper->getConfig('payment/wizit/min_max_wizit/merchant_max_amount');
                 $merchant_min_old =
-                $this->helper->getConfig('payment/wizpay/min_max_wizpay/merchant_min_amount');
+                $this->helper->getConfig('payment/wizit/min_max_wizit/merchant_min_amount');
                 $merchant_max_old =
-                $this->helper->getConfig('payment/wizpay/min_max_wizpay/merchant_max_amount');
+                $this->helper->getConfig('payment/wizit/min_max_wizit/merchant_max_amount');
 
                 $wmin = $wzresponse['minimumAmount'];
                 $wmax = $wzresponse['maximumAmount'];
@@ -62,15 +62,15 @@ class ExecuteCronJob
 
                     $merchant_minimum_amount = $wmin;
 
-                    $this->helper->initiateWizpayLogger('Cron Scheduler Called and Updated Wizpay minimumAmount value: '
+                    $this->helper->initiateWizitLogger('Cron Scheduler Called and Updated Wizit minimumAmount value: '
                         .json_encode($merchant_minimum_amount));
                 }
 
                 if ($oldwmax > $wmax && $wmax > $oldwmin || $merchant_max_old > $wmax && $wmax > $merchant_min_old) {
 
                     $merchant_maximum_amount = $wmax;
-                    $this->helper->initiateWizpayLogger(
-                        'Cron Scheduler Called and Updated Wizpay maximumAmount value: '
+                    $this->helper->initiateWizitLogger(
+                        'Cron Scheduler Called and Updated Wizit maximumAmount value: '
                         .json_encode(
                             $merchant_maximum_amount
                         )
@@ -82,14 +82,14 @@ class ExecuteCronJob
                      $merchant_max_old != $merchant_maximum_amount )) {
 
                     $this->resourceConfig->saveConfig(
-                        'payment/wizpay/min_max_wizpay/wz_min_amount',
+                        'payment/wizit/min_max_wizit/wz_min_amount',
                         $wmin,
                         \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                         0
                     );
 
                     $this->resourceConfig->saveConfig(
-                        'payment/wizpay/min_max_wizpay/wz_max_amount',
+                        'payment/wizit/min_max_wizit/wz_max_amount',
                         $wmax,
                         \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                         0
@@ -101,21 +101,21 @@ class ExecuteCronJob
                     );
 
                     $from = $recipientEmail;
-                    $nameFrom = "Wizpay";
-                    $nameTo = "Wizpay";
-                    $message = "Hello Admin, Wizpay minimum and maximum order amount limits have been changed. 
+                    $nameFrom = "Wizit";
+                    $nameTo = "Wizit";
+                    $message = "Hello Admin, Wizit minimum and maximum order amount limits have been changed. 
 		            Please login to your Magento store and reset Merchant Minimum Amount and Merchant Maximum Amount. 
 		            Thank you!";
 
                     $to = [$recipientEmail, $recipientEmail];
                     $email = new \Zend_Mail();
-                    $email->setSubject("Wizpay Transaction Limits Change Notification On Your Magento Store");
+                    $email->setSubject("Wizit Transaction Limits Change Notification On Your Magento Store");
                     $email->setBodyText($message);
                     $email->setFrom($from, $nameFrom);
                     $email->addTo($recipientEmail, $nameTo);
                     $email->send();
 
-                    $this->helper->initiateWizpayLogger(
+                    $this->helper->initiateWizitLogger(
                         'Notification Email sent successfully to Magento Store Admin: '
                         .json_encode(
                             $email
@@ -123,7 +123,7 @@ class ExecuteCronJob
                     );
 
                     /*throw new \Magento\Framework\Exception\CouldNotDeleteException(__(
-                        'Warning: Wizpay minimum and maximum order amount limits have been changed.'
+                        'Warning: Wizit minimum and maximum order amount limits have been changed.'
                     ));*/
                 }
             }

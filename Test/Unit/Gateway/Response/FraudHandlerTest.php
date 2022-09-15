@@ -3,11 +3,11 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Test\Unit\Gateway\Response;
+namespace Wizit\Wizit\Test\Unit\Gateway\Response;
 
 use Magento\Payment\Gateway\Data\PaymentDataObjectInterface;
 use Magento\Sales\Model\Order\Payment;
-use Wizpay\Wizpay\Gateway\Response\FraudHandler;
+use Wizit\Wizit\Gateway\Response\FraudHandler;
 
 class FraudHandlerTest extends \PHPUnit_Framework_TestCase
 {

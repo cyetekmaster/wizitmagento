@@ -1,5 +1,5 @@
 <?php
-namespace Wizpay\Wizpay\Block;
+namespace Wizit\Wizit\Block;
 class Popup extends \Magento\Framework\View\Element\Template
 {
     public function getContent() : string

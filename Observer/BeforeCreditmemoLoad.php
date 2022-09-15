@@ -1,9 +1,9 @@
 <?php
-namespace Wizpay\Wizpay\Observer;
+namespace Wizit\Wizit\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 
 class BeforeCreditmemoLoad implements ObserverInterface
 {
@@ -33,7 +33,7 @@ class BeforeCreditmemoLoad implements ObserverInterface
             $order = $creditmemo->getOrder();
             $payment = $order->getPayment();
 
-            if ($payment->getMethod() == 'wizpay') {
+            if ($payment->getMethod() == 'wizit') {
 
                 $block->unsetChild('submit_offline');
             }

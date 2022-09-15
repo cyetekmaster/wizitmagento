@@ -33,14 +33,14 @@ define(
 
         return Component.extend({
             defaults: {
-                template: 'Wizpay_Wizpay/payment/form',
+                template: 'Wizit_Wizit/payment/form',
             },
 
 
             redirectAfterPlaceOrder: false,
 
 
-            continueToWizpay: function(data, event){
+            continueToWizit: function(data, event){
                 const self = this;
 
                 if (event) {
@@ -51,21 +51,21 @@ define(
                 if ( this.isPlaceOrderActionAllowed() === true) {
                     this.isPlaceOrderActionAllowed(false);
     
-                    const captureUrlPath = 'wizpay/index?status=SUCCESS';
+                    const captureUrlPath = 'wizit/index?status=SUCCESS';
                     window.location.replace(url.build(captureUrlPath));
                 }
             },
 
 
             getCode: function () {
-                return 'wizpay';
+                return 'wizit';
             },
 
             getLogoUrl: function () {
-                return window.checkoutConfig.payment.wizpay.wizpayLogoUrl;
+                return window.checkoutConfig.payment.wizit.wizitLogoUrl;
             },
             getUrlc: function () {
-                return window.checkoutConfig.payment.wizpay.urls;
+                return window.checkoutConfig.payment.wizit.urls;
             },
 
             totalamount: function () {
@@ -80,16 +80,16 @@ define(
             },
 
             getStoreCurrency: function () {
-                return window.checkoutConfig.payment.wizpay.getStoreCurrency;
+                return window.checkoutConfig.payment.wizit.getStoreCurrency;
 
             },
 
             beforePlaceOrder: function () {
-                window.location.replace(url.build('wizpay/index'));
+                window.location.replace(url.build('wizit/index'));
             },
 
             afterPlaceOrder: function () {
-                window.location.replace(url.build('wizpay/index'));
+                window.location.replace(url.build('wizit/index'));
             },
 
             context: function () {
@@ -101,7 +101,7 @@ define(
             },
 
             popimage: function () {
-                return window.checkoutConfig.payment.wizpay.popimage;
+                return window.checkoutConfig.payment.wizit.popimage;
             },
 
             showPopup: function () {

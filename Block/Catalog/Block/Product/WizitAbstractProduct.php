@@ -1,13 +1,13 @@
 <?php
  
-namespace Wizpay\Wizpay\Block\Catalog\Block\Product;
+namespace Wizit\Wizit\Block\Catalog\Block\Product;
  
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 use Magento\Framework\View\Asset\Repository;
 
-class WzAbstractProduct
+class WizitAbstractProduct
 {
-    private $wizpay_helper;
+    private $wizit_helper;
     private $assetRepository;
     
 
@@ -15,7 +15,7 @@ class WzAbstractProduct
          Data $helper,
          Repository $assetRepository
     ){
-        $this->wizpay_helper = $helper;
+        $this->wizit_helper = $helper;
         $this->assetRepository = $assetRepository;
     }
 
@@ -32,7 +32,7 @@ class WzAbstractProduct
         $min_price =  $product->getMinPrice();
         $max_price = $product->getMaxPrice();
 
-       return $this->wizpay_helper->getWizpayMessage('List', $price, $this->assetRepository, $min_price, $max_price);        
+       return $this->wizit_helper->getWizitMessage('List', $price, $this->assetRepository, $min_price, $max_price);        
     }
 
 

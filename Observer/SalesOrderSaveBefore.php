@@ -1,5 +1,5 @@
 <?php
-namespace Wizpay\Wizpay\Observer;
+namespace Wizit\Wizit\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Wizpay\Wizpay\Observer;
+namespace Wizit\Wizit\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 
 class SalesOrderInvoicePay implements ObserverInterface
 {
@@ -63,21 +63,21 @@ class SalesOrderInvoicePay implements ObserverInterface
                     'merchantReference' => $merchantReference
                 ];
 
-        $wz_api_key = $this->helper->getConfig('payment/wizpay/api_key');
+        $wz_api_key = $this->helper->getConfig('payment/wizit/api_key');
 
-        $failed_url = $this->helper->getConfig('payment/wizpay/failed_url');
-        $success_url = $this->helper->getConfig('payment/wizpay/success_url');
-        $capture_settings = '1';// $this->helper->getConfig('payment/wizpay/capture');
+        $failed_url = $this->helper->getConfig('payment/wizit/failed_url');
+        $success_url = $this->helper->getConfig('payment/wizit/success_url');
+        $capture_settings = '1';// $this->helper->getConfig('payment/wizit/capture');
         $wzresponse = $this->helper->getOrderPaymentStatusApi($wz_api_key, $api_data);
 
         if (!is_array($wzresponse)) {
 
-            $messageconc = "Invoice was rejected by Wizpay. Transaction #$wzTxnId.";
+            $messageconc = "Invoice was rejected by Wizit. Transaction #$wzTxnId.";
             // $this->getCheckoutHelper()->cancelCurrentOrder("Order #".($order->getId())." ". $messageconc);
 
             // $this->getCheckoutHelper()->restoreQuote(); //restore cart
-            // $this->getMessageManager()->addErrorMessage(__("There was an error in the Wizpay payment"));
-            throw new \Magento\Framework\Exception\CouldNotDeleteException(__("Invoice was rejected by Wizpay. Transaction #$wzTxnId.")); // phpcs:ignore
+            // $this->getMessageManager()->addErrorMessage(__("There was an error in the Wizit payment"));
+            throw new \Magento\Framework\Exception\CouldNotDeleteException(__("Invoice was rejected by Wizit. Transaction #$wzTxnId.")); // phpcs:ignore
         } else {
 
             $orderStatus = $wzresponse['transactionStatus'];

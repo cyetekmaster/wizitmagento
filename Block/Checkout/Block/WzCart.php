@@ -1,13 +1,13 @@
 <?php
  
-namespace Wizpay\Wizpay\Block\Checkout\Block;
+namespace Wizit\Wizit\Block\Checkout\Block;
  
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 use Magento\Framework\View\Asset\Repository;
 
-class WzCart
+class WizitCart
 {
-    private $wizpay_helper;
+    private $wizit_helper;
     private $assetRepository;
 
 
@@ -15,7 +15,7 @@ class WzCart
          Data $helper,
          Repository $assetRepository
     ){
-        $this->wizpay_helper = $helper;
+        $this->wizit_helper = $helper;
         $this->assetRepository = $assetRepository;
     }
 
@@ -34,7 +34,7 @@ class WzCart
            
             $grand_total = $subject->getQuote()->getGrandTotal();     
                              
-            return  $html . $this->wizpay_helper->getWizpayMessage('Cart', $grand_total, $this->assetRepository); 
+            return  $html . $this->wizit_helper->getWizitMessage('Cart', $grand_total, $this->assetRepository); 
         }else{
             return  $html;
         }

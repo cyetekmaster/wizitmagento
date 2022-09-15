@@ -3,7 +3,7 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Model\Adminhtml\Source;
+namespace Wizit\Wizit\Model\Adminhtml\Source;
 
 use Magento\Payment\Model\Method\AbstractMethod;
 

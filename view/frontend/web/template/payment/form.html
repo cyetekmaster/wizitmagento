@@ -26,8 +26,8 @@
         <input type="radio" name="payment[method]" class="radio"
             data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()" />
         
-        <label data-bind="attr: {'for': getCode()}" class="label" for="Wizpay">
-            <img data-bind="attr: {src: getLogoUrl()}" class="payment-icon" alt="Wizpay" />
+        <label data-bind="attr: {'for': getCode()}" class="label" for="Wizit">
+            <img data-bind="attr: {src: getLogoUrl()}" class="payment-icon" alt="Wizit" />
         </label>
     </div>
     <div class="payment-method-content">
@@ -113,10 +113,10 @@
                     <button data-role="review-save" type="submit" data-bind="
                         attr: {title: $t('Place Order')},
                         enable: (getCode() == isChecked()),
-                        click: continueToWizpay,
+                        click: continueToWizit,
                         css: {disabled: !isPlaceOrderActionAllowed()}
                         " class="action primary checkout" disabled>
-                        <span data-bind="i18n: 'Place Order with Wizpay'"></span>
+                        <span data-bind="i18n: 'Place Order with Wizit'"></span>
                     </button>
                 </div>
             </div>

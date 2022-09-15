@@ -3,12 +3,12 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Test\Unit\Block;
+namespace Wizit\Wizit\Test\Unit\Block;
 
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Payment\Gateway\ConfigInterface;
 use Magento\Payment\Model\InfoInterface;
-use Magento\Wizpay\Block\Info;
+use Magento\Wizit\Block\Info;
 
 class InfoTest extends \PHPUnit_Framework_TestCase
 {

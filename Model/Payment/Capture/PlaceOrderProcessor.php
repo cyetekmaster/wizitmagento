@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Wizpay\Wizpay\Model\Payment\Capture;
+namespace Wizit\Wizit\Model\Payment\Capture;
 
-use Wizpay\Wizpay\Model\Payment\AdditionalInformationInterface;
+use Wizit\Wizit\Model\Payment\AdditionalInformationInterface;
 use Magento\Payment\Gateway\CommandInterface;
 use Magento\Quote\Model\Quote;
 
-use \Wizpay\Wizpay\Helper\Checkout;
+use \Wizit\Wizit\Helper\Checkout;
 
 
 class PlaceOrderProcessor
@@ -16,16 +16,16 @@ class PlaceOrderProcessor
     private $quotePaidStorage;
     private $paymentDataObjectFactory;
     private $logger;
-    private $wizpay_data_helper;
+    private $wizit_data_helper;
     private $customerSession;
 
     public function __construct(
         \Magento\Quote\Api\CartManagementInterface $cartManagement,
-        \Wizpay\Wizpay\Model\Payment\Capture\CancelOrderProcessor $cancelOrderProcessor,
-        \Wizpay\Wizpay\Model\Order\Payment\QuotePaidStorage $quotePaidStorage,
+        \Wizit\Wizit\Model\Payment\Capture\CancelOrderProcessor $cancelOrderProcessor,
+        \Wizit\Wizit\Model\Order\Payment\QuotePaidStorage $quotePaidStorage,
         \Magento\Payment\Gateway\Data\PaymentDataObjectFactoryInterface $paymentDataObjectFactory,
         \Psr\Log\LoggerInterface $logger,
-        \Wizpay\Wizpay\Helper\Data $wizpay_helper,
+        \Wizit\Wizit\Helper\Data $wizit_helper,
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession
     ) {
@@ -34,19 +34,19 @@ class PlaceOrderProcessor
         $this->quotePaidStorage = $quotePaidStorage;
         $this->paymentDataObjectFactory = $paymentDataObjectFactory;
         $this->logger = $logger;
-        $this->wizpay_data_helper = $wizpay_helper;
+        $this->wizit_data_helper = $wizit_helper;
         $this->customerSession = $customerSession;
     }
 
-    public function execute(Quote $quote, string $wizpayOrderToken)
+    public function execute(Quote $quote, string $wizitOrderToken)
     {
         try {
 
-            $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizpay PlaceOrderProcessor start<<<<<<<<<<<<<<--------------");
+            $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizit PlaceOrderProcessor start<<<<<<<<<<<<<<--------------");
 
             $uniqid = hash('md5', time() . $quote->getId());
             $merchantReference =  'MER' . $uniqid . '-' . $quote->getId();
-            // get wizpay url
+            // get wizit url
             $wzresponse = $this->getOrderData($quote, $merchantReference);
           
 
@@ -72,7 +72,7 @@ class PlaceOrderProcessor
                 $quote->save();
 
 
-                 $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizpay PlaceOrderProcessor end<<<<<<<<<<<<<<--------------");
+                 $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizit PlaceOrderProcessor end<<<<<<<<<<<<<<--------------");
                 // return retirect url
                 return $redirect_url;
             }else{
@@ -109,8 +109,8 @@ class PlaceOrderProcessor
         
         // $uniqid = hash('md5', time() . $orderId);
         // $merchantReference =  'MER' . $uniqid . '-' . $orderId;
-        // $successurl = $this->wizpay_data_helper->getCompleteUrl();
-        // $cancelurl = $this->wizpay_data_helper->getCancelledUrl();
+        // $successurl = $this->wizit_data_helper->getCompleteUrl();
+        // $cancelurl = $this->wizit_data_helper->getCancelledUrl();
 
         // $success_url =  $successurl . '?mref=' . $merchantReference . '&orderid=' . $orderId;
         // $fail_url =  $cancelurl . '?mref=' . $merchantReference . '&orderid=' . $orderId;
@@ -122,8 +122,8 @@ class PlaceOrderProcessor
         $shipping_address = $quote->getShippingAddress();
 
         
-        $successurl = $this->wizpay_data_helper->getCompleteUrl();
-        $cancelurl = $this->wizpay_data_helper->getCancelledUrl();
+        $successurl = $this->wizit_data_helper->getCompleteUrl();
+        $cancelurl = $this->wizit_data_helper->getCancelledUrl();
 
         $success_url =  $successurl . '?mref=' . $merchantReference . '&quoteId=' . $quoteId;
         $fail_url =  $cancelurl . '?mref=' . $merchantReference . '&quoteId=' . $quoteId;
@@ -288,8 +288,8 @@ class PlaceOrderProcessor
             ]
         ];
 
-        $get_api_key = $this->wizpay_data_helper->getConfig('payment/wizpay/api_key');
-        $wzresponse = $this->wizpay_data_helper->callCcheckoutsRredirectAapi($get_api_key, $data);
+        $get_api_key = $this->wizit_data_helper->getConfig('payment/wizit/api_key');
+        $wzresponse = $this->wizit_data_helper->callCcheckoutsRredirectAapi($get_api_key, $data);
         return $wzresponse;
     }
 }

@@ -3,12 +3,12 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Gateway\Http;
+namespace Wizit\Wizit\Gateway\Http;
 
 use Magento\Payment\Gateway\Http\TransferBuilder;
 use Magento\Payment\Gateway\Http\TransferFactoryInterface;
 use Magento\Payment\Gateway\Http\TransferInterface;
-use Wizpay\Wizpay\Gateway\Request\MockDataRequest;
+use Wizit\Wizit\Gateway\Request\MockDataRequest;
 
 class TransferFactory implements TransferFactoryInterface
 {

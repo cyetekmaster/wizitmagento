@@ -7,7 +7,7 @@
  * @link
  */
 
-namespace Wizpay\Wizpay\Controller\Index;
+namespace Wizit\Wizit\Controller\Index;
 
 class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
 {
@@ -23,7 +23,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
     private $logger;
     private $quoteFactory;
     private $paymentDataObjectFactory;
-    private $wizpay_data_helper;
+    private $wizit_data_helper;
     private $order;
     private $checkoutHelper;
     private $invoiceSender;
@@ -36,13 +36,13 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         \Magento\Checkout\Model\Session $session,
         \Magento\Framework\Controller\Result\RedirectFactory $redirectFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Wizpay\Wizpay\Model\Payment\Capture\PlaceOrderProcessor $placeOrderProcessor,
+        \Wizit\Wizit\Model\Payment\Capture\PlaceOrderProcessor $placeOrderProcessor,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Quote\Model\QuoteFactory $quoteFactory,
         \Magento\Quote\Api\CartManagementInterface $cartManagement,
-        \Wizpay\Wizpay\Helper\Data $wizpay_helper,
+        \Wizit\Wizit\Helper\Data $wizit_helper,
         \Magento\Sales\Model\Order $order,
-        \Wizpay\Wizpay\Helper\Checkout $checkout,
+        \Wizit\Wizit\Helper\Checkout $checkout,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
@@ -56,7 +56,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         $this->cartManagement = $cartManagement;
         $this->logger = $logger;
         $this->quoteFactory = $quoteFactory;
-        $this->wizpay_data_helper = $wizpay_helper;
+        $this->wizit_data_helper = $wizit_helper;
         $this->order = $order;
         $this->checkoutHelper = $checkout;
         $this->invoiceSender = $invoiceSender;
@@ -92,18 +92,18 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
             "merchantReference" => $merchantReference
         ];
 
-        $wz_api_key = $this->wizpay_data_helper->getConfig(
-            "payment/wizpay/api_key"
+        $wz_api_key = $this->wizit_data_helper->getConfig(
+            "payment/wizit/api_key"
         );
 
-        $failed_url = $this->wizpay_data_helper->getConfig(
-            "payment/wizpay/failed_url"
+        $failed_url = $this->wizit_data_helper->getConfig(
+            "payment/wizit/failed_url"
         );
-        $success_url = $this->wizpay_data_helper->getConfig(
-            "payment/wizpay/success_url"
+        $success_url = $this->wizit_data_helper->getConfig(
+            "payment/wizit/success_url"
         );
-        $capture_settings = "1"; // $this->wizpay_data_helper->getConfig('payment/wizpay/capture');
-        $wzresponse = $this->wizpay_data_helper->getOrderPaymentStatusApi(
+        $capture_settings = "1"; // $this->wizit_data_helper->getConfig('payment/wizit/capture');
+        $wzresponse = $this->wizit_data_helper->getOrderPaymentStatusApi(
             $wz_api_key,
             $api_data
         );
@@ -113,7 +113,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
         if (!is_array($wzresponse)) {
-            $errorMessage = "was rejected by Wizpay. Transaction #$wzTxnId.";
+            $errorMessage = "was rejected by Wizit. Transaction #$wzTxnId.";
             $this->messageManager->addErrorMessage($errorMessage);
             $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 108<<<<<<<<<<<<<<<<<<<<-------------------");
             return $this->redirectFactory->create()->setPath("checkout/cart");
@@ -188,7 +188,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                 $order = $this->order->load($orderId);
 
                 // update order id to api
-                $this->wizpay_data_helper->updateOrderIdApi(
+                $this->wizit_data_helper->updateOrderIdApi(
                     $wz_api_key,
                     $wzTxnId,
                     $orderId
@@ -204,7 +204,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                         "merchantReference" => $merchantReference,
                     ];
 
-                    $wzresponse = $this->wizpay_data_helper->immediatePaymentCapture(
+                    $wzresponse = $this->wizit_data_helper->immediatePaymentCapture(
                         $wz_api_key,
                         $api_data
                     );
@@ -214,12 +214,12 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                         $this->checkoutHelper->cancelCurrentOrder(
                             "Order #" .
                                 $order->getId() .
-                                " was rejected by Wizpay. Transaction ID" .
+                                " was rejected by Wizit. Transaction ID" .
                                 $apiOrderId
                         ); // phpcs:ignore
                         $this->checkoutHelper->restoreQuote(); //restore cart
                         $this->messageManager->addErrorMessage(
-                            __("There was an error in the Wizpay payment")
+                            __("There was an error in the Wizit payment")
                         );
                         $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 420<<<<<<<<<<<<<<<<<<<<-------------------");
                         if (!empty($failed_url)) {
@@ -280,7 +280,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
 
                         $order->addStatusToHistory(
                             "processing",
-                            "Your payment with Wizpay is complete. Wizpay Transaction ID: " .
+                            "Your payment with Wizit is complete. Wizit Transaction ID: " .
                                 $apiOrderId,
                             false
                         );
@@ -289,7 +289,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                         $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 485<<<<<<<<<<<<<<<<<<<<-------------------");
 
                         $this->messageManager->addSuccessMessage(
-                            (string) __("Wizpay Transaction Completed")
+                            (string) __("Wizit Transaction Completed")
                         );
 
                         if (!empty($success_url)){
@@ -309,7 +309,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                 $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 244<<<<<<<<<<<<<<<<<<<<-------------------");
 
                 $this->messageManager->addSuccessMessage(
-                    (string) __("Wizpay Transaction Completed")
+                    (string) __("Wizit Transaction Completed")
                 );
 
                 if (!empty($success_url)){
@@ -325,7 +325,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         }
 
         // all other statuc return failed
-        $errorMessage = "was rejected by Wizpay. Transaction #$wzTxnId.";
+        $errorMessage = "was rejected by Wizit. Transaction #$wzTxnId.";
         $this->messageManager->addErrorMessage($errorMessage);
         $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 508<<<<<<<<<<<<<<<<<<<<-------------------");
         return $this->redirectFactory->create()->setPath("checkout/cart");
@@ -335,11 +335,11 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
 
     private function customAdminEmail($orderId, $out_of_stock_p_details)
     {
-        // $email = $this->wizpay_data_helper->getConfig("trans_email/ident_general/email");
+        // $email = $this->wizit_data_helper->getConfig("trans_email/ident_general/email");
         // $mailmsg =
         //     $out_of_stock_p_details .
         //     " from the order are not in stock, so payment was not captured. You need to capture the payment manually after it is back in stock."; // phpcs:ignore
-        // $mailTransportFactory = $this->wizpay_data_helper->mailTransportFactory();
+        // $mailTransportFactory = $this->wizit_data_helper->mailTransportFactory();
         // $message = new \Magento\Framework\Mail\Message();
         // /*$message->setFrom($email);*/ // phpcs:ignore
         // $message->addTo($email);
