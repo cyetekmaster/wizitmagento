@@ -64,6 +64,9 @@ define(
             getLogoUrl: function () {
                 return window.checkoutConfig.payment.wizit.wizitLogoUrl;
             },
+            getTitle : function(){
+                return window.checkoutConfig.payment.wizit.wizitTitle;
+            },
             getUrlc: function () {
                 return window.checkoutConfig.payment.wizit.urls;
             },

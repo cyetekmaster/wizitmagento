@@ -68,6 +68,12 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
         $getStoreCurrency = $this->helper->getStoreCurrency();
         $banktransferLogoUrl = $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
+        $wizitTitle = $this->helper->getConfig('payment/wizit/title');
+
+        if($wizitTitle == null){
+            $wizitTitle = '';
+        }
+
         return [
             'payment' => [
                 'wizit' => [
@@ -76,7 +82,7 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
                     'subtotalamount' => $formatted_totalamount,
                     //'getSubtotal1' => $getSubtotal1,
                     'getStoreCurrency' => $getStoreCurrency,
-
+                    'wizitTitle' => $wizitTitle,
                 ]
             ]
         ];
