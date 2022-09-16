@@ -764,7 +764,7 @@ class Data extends AbstractHelper
     private $wizit_info_style_product_list = '';
     private $wizit_info_style_product_detail = '';
     private $wizit_info_logo_style = 'max-width: 100px; max-height: 30px; padding-top: 5px; border: none !important; vertical-align: bottom; display: inline-block;';
-    private $wizit_info_content_style = 'line-height: 25px;';
+    private $wizit_info_content_style = 'line-height: 35px;';
     
 
 
