@@ -31,6 +31,20 @@ define(
         ) {
         'use strict';
 
+
+        if(window.checkoutConfig.payment.wizit.default_country != 'AU'){
+            return Component.extend({
+                defaults: {
+                    template: 'Wizit_Wizit/payment/outzoneform',
+                },
+            });
+        }
+
+
+
+
+
+
         return Component.extend({
             defaults: {
                 template: 'Wizit_Wizit/payment/form',
