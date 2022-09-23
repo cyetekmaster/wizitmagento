@@ -14,6 +14,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
      */
     const COUNTRY_CODE_PATH = 'general/country/default';
     const MERCHANT_COUNTRY_CODE_PATH = 'paypal/general/merchant_country';
+    const OUTZONE_ERROR_MESSAGE = "Error: Wizit is only available in Australia.";
 
     /**
      * @var ScopeConfigInterface
@@ -104,7 +105,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
                 $error_messages = $pre_messages->getErrors();
                 if(isset($error_messages) && !is_null($error_messages)){
                     foreach ($error_messages as $err_m) {
-                        if($err_m->getText() == 'Error: Wizit is only available in Australia.'){
+                        if($err_m->getText() == self::OUTZONE_ERROR_MESSAGE){
                             $has_outzone_error_message = true;
                             break;
                         }
@@ -114,7 +115,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
             }
             
             if(!$has_outzone_error_message){
-                $this->messageManager->addErrorMessage(__("Error: Wizit is only available in Australia."));
+                $this->messageManager->addErrorMessage(__(self::OUTZONE_ERROR_MESSAGE));
             }
             
 
