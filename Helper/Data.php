@@ -815,8 +815,12 @@ class Data extends AbstractHelper
             else if($type == 'Detail' && intval( $show_on_product_page, 0) == 1){
                 if($min_price > 0 && $max_price < 99999){
                     // display icon only
-                    return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_list .'">
-                                    <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /></div>';
+                    $sub_amount1 = '$' . number_format($min_price / 4, 2, '.', ',');
+                    $sub_amount2 = '$' . number_format($max_price / 4, 2, '.', ',');
+                    return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of from '. $sub_amount1 . ' to ' . $sub_amount2 .
+                        ' with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }else{
                     // display full info
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
