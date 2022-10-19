@@ -72,7 +72,7 @@ class WizitView
                 }
 
 
-                $wizit_info = $this->wizit_helper->getWizitMessage('Detail',  $price, $this->assetRepository, $min_price, $max_price);
+                $wizit_info = $this->wizit_helper->getWizitMessage('Detail',  $price, $this->assetRepository, $min_price, $max_price, $product->getId());
             }
                   
             return  $html . $wizit_info; 

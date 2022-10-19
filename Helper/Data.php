@@ -769,7 +769,7 @@ class Data extends AbstractHelper
 
 
 
-    public function getWizitMessage($type, $price, $assetRepository, $min_price = 0, $max_price = 99999){
+    public function getWizitMessage($type, $price, $assetRepository, $min_price = 0, $max_price = 99999, $product_id = 0){
         $banktransferLogoUrl = $assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
                
@@ -818,15 +818,17 @@ class Data extends AbstractHelper
                     $sub_amount1 = '$' . number_format($min_price / 4, 2, '.', ',');
                     $sub_amount2 = '$' . number_format($max_price / 4, 2, '.', ',');
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of from '. $sub_amount1 . ' to ' . $sub_amount2 .
-                        ' with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of from <span id="wizit-sub-amount-price">'. $sub_amount1 . ' to ' . $sub_amount2 .
+                        '</span> with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }else{
                     // display full info
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of '. $sub_amount .
-                        ' with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of <span id="wizit-sub-amount-price">'. $sub_amount .
+                        '</span> with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }
                 
             }
