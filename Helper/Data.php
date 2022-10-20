@@ -835,7 +835,7 @@ class Data extends AbstractHelper
             else if($type == 'Cart' && intval( $show_on_cat_page, 0) == 1){
                 return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of '. $sub_amount .' with Wizit. 
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of <span id="wizit-sub-amount-price">'. $sub_amount .'</span> with Wizit. 
                         <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
             }            
         }
