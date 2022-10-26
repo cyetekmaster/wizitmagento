@@ -43,16 +43,16 @@ class SalesOrderItemCancel implements ObserverInterface
             $apiOrderId = $additionalInformation['transactionId'];
             $wz_api_key = $this->helper->getConfig('payment/wizit/api_key');
             
-            $wzresponse = $this->helper->orderVoidApi($wz_api_key, $apiOrderId); // phpcs:ignore
+            // $wzresponse = $this->helper->orderVoidApi($wz_api_key, $apiOrderId); // phpcs:ignore
 
-            if (!is_array($wzresponse)) {
+            // if (!is_array($wzresponse)) {
 
-                $order->addStatusHistoryComment(__('Cancel' .$wzresponse))->save(); // phpcs:ignore
-                throw new \Magento\Framework\Exception\CouldNotDeleteException(__($wzresponse)); // phpcs:ignore
+            //     $order->addStatusHistoryComment(__('Cancel' .$wzresponse))->save(); // phpcs:ignore
+            //     throw new \Magento\Framework\Exception\CouldNotDeleteException(__($wzresponse)); // phpcs:ignore
                 
-            } else {
+            // } else {
 
-                if ('VOIDED' == $wzresponse['paymentStatus'] || 'CAPTURED' == $wzresponse['paymentStatus']) {
+            //     if ('VOIDED' == $wzresponse['paymentStatus'] || 'CAPTURED' == $wzresponse['paymentStatus']) {
 
                     $order->addStatusToHistory(
                         'canceled',
@@ -67,9 +67,9 @@ class SalesOrderItemCancel implements ObserverInterface
                     $payment->save();
                     $order->save();
 
-                    $this->messageManager->addSuccess(__("Cancel has been created successfully."));
-                }
-            }
+            //         $this->messageManager->addSuccess(__("Cancel has been created successfully."));
+            //     }
+            // }
         }
         return $this;
     } // phpcs:ignore
