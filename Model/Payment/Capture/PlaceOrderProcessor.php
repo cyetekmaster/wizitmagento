@@ -180,6 +180,8 @@ class PlaceOrderProcessor
         //Loop through each item and fetch data
         $items = $quote->getAllVisibleItems();
 
+        $item_sub_total = 0;
+
         foreach ($items as $item) {
 
             if ($item->getData()) {
@@ -192,6 +194,8 @@ class PlaceOrderProcessor
                         'currency' => $getStoreCurrency
                     ]
                 ];
+
+                $item_sub_total = $item_sub_total + floatval($item->getPrice());
             }
         }
 
@@ -217,9 +221,16 @@ class PlaceOrderProcessor
             $last_name = $current_customer->getLastname();
         }
 
+        // total ground - shipping - cart subtotal - tax - discount 
+        $other_special_item_total = floatval($quote->getGrandTotal()) - floatval($shipping_address->getShippingAmount()) - $item_sub_total - floatval($quote->getTaxAmount());
+
         $data = [
             "amount"=> [
                 "amount"=> number_format(floatval($quote->getGrandTotal()), 2),
+                "currency"=> $getStoreCurrency
+            ],
+            "OtherCharges"=> [
+                "amount"=> number_format($other_special_item_total, 2),
                 "currency"=> $getStoreCurrency
             ],
             "consumer"=> [

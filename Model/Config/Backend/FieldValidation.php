@@ -3,10 +3,24 @@ namespace Wizit\Wizit\Model\Config\Backend;
 
 use \Wizit\Wizit\Helper\Data;
 use Magento\Framework\App\RequestInterface;
+use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class FieldValidation extends \Magento\Framework\App\Config\Value
 {
 
+    /**
+     * Get country path
+     */
+    const COUNTRY_CODE_PATH = 'general/country/default';
+    const MERCHANT_COUNTRY_CODE_PATH = 'paypal/general/merchant_country';
+    const OUTZONE_ERROR_MESSAGE = "Error: Wizit is only available in Australia.";
+
+    /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+    protected $messageManager;
     /**
      * Request instance
      *
@@ -45,6 +59,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Message\ManagerInterface $messageManager,
         RequestInterface $request,
         Data $helper,
         array $data = []
@@ -56,6 +71,8 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         $this->dir = $dir;
         $this->_configInterface = $configInterface;
         $this->_storeManager = $storeManager;
+        $this->scopeConfig =  $config;
+        $this->messageManager = $messageManager;
         parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data);
     }
 
@@ -77,6 +94,39 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
             return;
         }
 
+        // check service country
+        $default_country = $this->getCountryByWebsite($allpostdata['groups']['account']['fields']['merchant_country']['value']);
+        if($default_country != 'AU'){
+            
+            $pre_messages =  $this->messageManager->getMessages(false);
+            
+            $has_outzone_error_message = false;
+            if(isset($pre_messages) && !is_null($pre_messages)){
+                $error_messages = $pre_messages->getErrors();
+                if(isset($error_messages) && !is_null($error_messages)){
+                    foreach ($error_messages as $err_m) {
+                        if($err_m->getText() == self::OUTZONE_ERROR_MESSAGE){
+                            $has_outzone_error_message = true;
+                            break;
+                        }
+                    }
+                }
+                
+            }
+            
+            if(!$has_outzone_error_message){
+                $this->messageManager->addErrorMessage(__(self::OUTZONE_ERROR_MESSAGE));
+            }
+            
+
+            // turn off wizpay
+            $this->resourceConfig->saveConfig(
+                'payment/wizit/active',
+                0,
+                \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
+                0
+            );            
+        }
 
         // keep working if wizit turn on.
         // print_r($allpostdata);
@@ -252,5 +302,30 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         ];
 
         $plugin_config_api_response  = $this->helper->callConfigurMerchantPlugin($get_api_key,$environment, $plugin_config_api_data);
+    }
+
+
+
+    /**
+     * Get Country code by website scope
+     *
+     * @return string
+     */
+    public function getCountryByWebsite($merchant_country)
+    {
+        $default_country = $this->scopeConfig->getValue(
+            self::COUNTRY_CODE_PATH,
+            ScopeInterface::SCOPE_WEBSITES
+        );
+
+        
+        if(isset($merchant_country) && !is_null($merchant_country) && !empty($merchant_country)){
+            $default_country = $merchant_country;
+        }
+
+        
+        // $this->messageManager->addError(__('Error: $default_country = ' . $default_country . ', $merchant_country=' . $merchant_country));
+
+        return $default_country;
     }
 }
