@@ -204,6 +204,10 @@ class Data extends AbstractHelper
     {
         return $this->getStoreManager()->getStore()->getBaseUrl() . "wizit/index/failed";
     }
+    public function getWebhookUrl()
+    {
+        return $this->getStoreManager()->getStore()->getBaseUrl() . "wizit/index/webhookcomfirmurl";
+    }
     // private function apiUrl() {
     
     //  return 'https://uatapi.wizardpay.com.au/v1/api/';
