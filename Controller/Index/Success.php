@@ -31,6 +31,8 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
     private $productRepository; 
     private $customerRepository;
 
+    public $callback_source = 'SUCCESS CALL BACK';
+
     public function __construct(
         \Magento\Framework\App\Request\Http $request,
         \Magento\Checkout\Model\Session $session,
@@ -63,11 +65,12 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         $this->quoteRepository = $quoteRepository;
         $this->productRepository = $productRepository;
         $this->customerRepository = $customerRepository;
+        $this->callback_source = "Success CALL BACK";
     }
 
     public function execute()
     {
-        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK START<<<<<<<<<<<<<<<<<<<<-------------------");
+        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  START<<<<<<<<<<<<<<<<<<<<-------------------");
         
         $callback_request_quote_id = $this->request->getParam("quoteId");
         $callback_request_mref = $this->request->getParam("mref");
@@ -115,7 +118,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         if (!is_array($wzresponse)) {
             $errorMessage = "was rejected by Wizit. Transaction #$wzTxnId.";
             $this->messageManager->addErrorMessage($errorMessage);
-            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 108<<<<<<<<<<<<<<<<<<<<-------------------");
+            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  END 108<<<<<<<<<<<<<<<<<<<<-------------------");
             return $this->redirectFactory->create()->setPath("checkout/cart");
         } else {
             $orderStatus = $wzresponse["transactionStatus"];
@@ -145,7 +148,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                     }else{
                         $errorMessage = "No custmer has been found. Transaction #$wzTxnId.";
                         $this->messageManager->addErrorMessage($errorMessage);
-                        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 126<<<<<<<<<<<<<<<<<<<<-------------------");
+                        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  END 126<<<<<<<<<<<<<<<<<<<<-------------------");
                         return $this->redirectFactory->create()->setPath("checkout/cart");
                     }
                 }
@@ -221,7 +224,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                         $this->messageManager->addErrorMessage(
                             __("There was an error in the Wizit payment")
                         );
-                        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 420<<<<<<<<<<<<<<<<<<<<-------------------");
+                        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  END 420<<<<<<<<<<<<<<<<<<<<-------------------");
                         if (!empty($failed_url)) {
                             $this->_redirect($failed_url);
                         } else {
@@ -286,7 +289,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
                         );
 
                         $order->save();
-                        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 485<<<<<<<<<<<<<<<<<<<<-------------------");
+                        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  END 485<<<<<<<<<<<<<<<<<<<<-------------------");
 
                         $this->messageManager->addSuccessMessage(
                             (string) __("Wizit Transaction Completed")
@@ -306,7 +309,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
             } 
             else if("COMPLETED" == $orderStatus &&  "CAPTURED" == $paymentStatus){
                 // do nothing 
-                $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 244<<<<<<<<<<<<<<<<<<<<-------------------");
+                $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  END 244<<<<<<<<<<<<<<<<<<<<-------------------");
 
                 $this->messageManager->addSuccessMessage(
                     (string) __("Wizit Transaction Completed")
@@ -327,7 +330,7 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         // all other statuc return failed
         $errorMessage = "was rejected by Wizit. Transaction #$wzTxnId.";
         $this->messageManager->addErrorMessage($errorMessage);
-        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL BACK END 508<<<<<<<<<<<<<<<<<<<<-------------------");
+        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>" . $this->callback_source . "  END 508<<<<<<<<<<<<<<<<<<<<-------------------");
         return $this->redirectFactory->create()->setPath("checkout/cart");
 
         
