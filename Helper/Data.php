@@ -824,7 +824,7 @@ class Data extends AbstractHelper
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of from <span id="wizit-sub-amount-price">'. $sub_amount1 . ' to ' . $sub_amount2 .
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of <span id="wizit-sub-amount-price">'. $sub_amount1 . ' to ' . $sub_amount2 .
                         '</span> with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }else{
                     // display full info
