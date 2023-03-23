@@ -27,7 +27,7 @@ class CancelOrderProcessor
     {
         $commandSubject = ['payment' => $this->paymentDataObjectFactory->create($payment)];
 
-        $paymentState = $payment->getAdditionalInformation(AdditionalInformationInterface::WIZPAY_PAYMENT_STATE);
+        $paymentState = $payment->getAdditionalInformation(AdditionalInformationInterface::WIZIT_PAYMENT_STATE);
         if ($paymentState == \Wizit\Wizit\Model\PaymentStateInterface::AUTH_APPROVED) {
             $this->voidCommand->execute($commandSubject);
         } else {

@@ -58,7 +58,7 @@ class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
 
     public function execute()
     {
-        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY Failed CALL BACK START<<<<<<<<<<<<<<<<<<<<-------------------");
+        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZIT Failed CALL BACK START<<<<<<<<<<<<<<<<<<<<-------------------");
         
         $callback_request_quote_id = $this->request->getParam("quoteId");
         $callback_request_mref = $this->request->getParam("mref");
@@ -66,7 +66,7 @@ class Failed implements \Magento\Framework\App\Action\HttpGetActionInterface
         $this->logger->info("callback_request_mref->" . $callback_request_mref);
         
 
-        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY Failed CALL BACK END<<<<<<<<<<<<<<<<<<<<-------------------");
+        $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZIT Failed CALL BACK END<<<<<<<<<<<<<<<<<<<<-------------------");
 
 
         $failed_url = $this->wizit_data_helper->getConfig(

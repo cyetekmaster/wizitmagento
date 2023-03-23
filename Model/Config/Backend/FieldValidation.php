@@ -119,7 +119,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
             }
             
 
-            // turn off wizpay
+            // turn off WIZIT
             $this->resourceConfig->saveConfig(
                 'payment/wizit/active',
                 0,

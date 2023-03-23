@@ -49,7 +49,7 @@ class SalesOrderCreditmemoSave implements ObserverInterface
             }
     
 
-            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY SalesOrderCreditmemoSave Start<<<<<<<<<<<<<<<<<<<<-------------------");
+            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZIT SalesOrderCreditmemoSave Start<<<<<<<<<<<<<<<<<<<<-------------------");
 
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $orderId = $order->getEntityId();
@@ -121,7 +121,7 @@ class SalesOrderCreditmemoSave implements ObserverInterface
                 $this->messageManager->addSuccess(__("Refund has been created successfully."));
             }
 
-            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY SalesOrderCreditmemoSave end<<<<<<<<<<<<<<<<<<<<-------------------");
+            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZIT SalesOrderCreditmemoSave end<<<<<<<<<<<<<<<<<<<<-------------------");
         }
     }
 }

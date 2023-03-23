@@ -36,7 +36,7 @@ class PaymentMethodAvailable implements ObserverInterface {
         $method_instance = $observer->getEvent()->getMethodInstance()->getCode();
         $quote = $this->session->getQuote();
         if($method_instance == 'wizit') {
-            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY  Check PaymentMethodAvailable Start<<<<<<<<<<<<<<<<<<<<-------------------");
+            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZIT  Check PaymentMethodAvailable Start<<<<<<<<<<<<<<<<<<<<-------------------");
             // get total
             $total = floatval($quote->getGrandTotal());
             // get min and max
@@ -65,7 +65,7 @@ class PaymentMethodAvailable implements ObserverInterface {
                 $this->logger->info("wizit order total=" . $total . ', Min=' . $m_min . ', Max=' . $m_max);
             }
             
-            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY  Check PaymentMethodAvailable End<<<<<<<<<<<<<<<<<<<<-------------------");
+            $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZIT  Check PaymentMethodAvailable End<<<<<<<<<<<<<<<<<<<<-------------------");
         }
 
         

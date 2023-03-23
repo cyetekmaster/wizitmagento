@@ -6,9 +6,9 @@ interface CheckoutInterface{
      /**#@+
      * Checkout result keys
      */
-    const WIZPAY_TOKEN = 'wizit_token';
-    const WIZPAY_AUTH_TOKEN_EXPIRES = 'wizit_expires';
-    const WIZPAY_REDIRECT_CHECKOUT_URL = 'wizit_redirectCheckoutUrl';
+    const WIZIT_TOKEN = 'wizit_token';
+    const WIZIT_AUTH_TOKEN_EXPIRES = 'wizit_expires';
+    const WIZIT_REDIRECT_CHECKOUT_URL = 'wizit_redirectCheckoutUrl';
 
 
 }
