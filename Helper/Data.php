@@ -103,7 +103,7 @@ class Data extends AbstractHelper
 
 
     public function getPluginVersion(){
-        return '1.0.6';
+        return '1.0.0';
     }
 
     public function initiateWizitLogger($log)
