@@ -106,7 +106,7 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
                     'getStoreCurrency' => $getStoreCurrency,
                     'wizitTitle' => $wizitTitle,
                     'default_country' => $default_country,
-                    'popup-image' => $popupImageUrl
+                    'popupImage' => $popupImageUrl
                 ]
             ]
         ];

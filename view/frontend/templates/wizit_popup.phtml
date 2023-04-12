@@ -11,7 +11,7 @@
 <div id="wizit-modal-content">
     <div class="modal-body-content wizit-popup-body-content">
         <a href="https://info.wizit.money/HowItWorks/HowItWorks.html" target="_blank">
-            <img src="'. $url_popup .'" title="Terms and Conditions" />
+            <img id="wizit-popup-image" src="" title="Terms and Conditions" />
         </a>
     </div>    
 </div>
@@ -32,7 +32,7 @@
                 class: '',
                 click: function () {
                     // unload iframe
-                    document.getElementById('wizit-popup-iframe').setAttribute("src","");
+                    //document.getElementById('wizit-popup-iframe').setAttribute("src","");
                     // close modal
                     this.closeModal();
                 }
@@ -42,7 +42,7 @@
         var popup = modal(options, $('#wizit-modal-content'));
         $(".wizit-learn-more-popup-link").click(function() {
             // set iframe url
-            document.getElementById('wizit-popup-iframe').setAttribute("src","https://info.wizit.com.au/HowItWorks/HowItWorks.html");
+            document.getElementById('wizit-popup-image').setAttribute("src",window.checkoutConfig.payment.wizit.popupImage);
             // load modal
             $('#wizit-modal-content').modal('openModal');
         });
