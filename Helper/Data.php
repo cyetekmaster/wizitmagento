@@ -23,8 +23,8 @@ class Data extends AbstractHelper
      * Base API URL setting
      * 
      */
-    private  $base_url = 'https://api.wizit.com.au/';
-    private  $test_url = 'https://uatapi.wizit.com.au/';
+    private  $base_url = 'https://api.wizit.money/';
+    private  $test_url = 'https://dev2api.wizit.money/';
     private  $version = 'v1/';
     private  $intermediate = 'api/';
     private  $apicall = '';
