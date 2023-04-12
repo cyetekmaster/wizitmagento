@@ -6,21 +6,29 @@ namespace Wizit\Wizit\Block;
 class Popup extends \Magento\Framework\View\Element\Template
 {
 
-    // private $assetRepository;
+    public $assetRepos;
+    public $helperImageFactory;
 
-    // public function __construct(
-    //     Repository $assetRepository
-    // ) {
-    //     $this->assetRepository = $assetRepository;
-    // }
+    public function __construct(
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\View\Asset\Repository $assetRepos,
+        \Magento\Catalog\Helper\ImageFactory $helperImageFactory,
+        array $data = []
+    ) {
+        $this->assetRepos = $assetRepos;
+        $this->helperImageFactory = $helperImageFactory;
+        parent::__construct($context, $data);
+    }
 
 
-    public function getContent() : string
+    public function getContent() 
     {
-
-        //$banktransferLogoUrl = $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/wizit_popup.png', []);
-
-
         return 'test popup';
     }
+
+
+    public function getPopupImageUrl(){
+        return $this->assetRepos->getUrlWithParams('Wizit_Wizit::images/wizit_popup.png', []);
+    }
+
 }

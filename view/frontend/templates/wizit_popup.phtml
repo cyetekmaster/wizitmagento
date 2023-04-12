@@ -4,6 +4,10 @@
     min-height: 920px;
 }
 
+.wizit-popup-body-content{
+    text-align: center;
+}
+
 </style>
 
 
@@ -11,7 +15,7 @@
 <div id="wizit-modal-content">
     <div class="modal-body-content wizit-popup-body-content">
         <a href="https://info.wizit.money/HowItWorks/HowItWorks.html" target="_blank">
-            <img id="wizit-popup-image" src="" title="Terms and Conditions" />
+            <img id="wizit-popup-image" src="<?php echo $block->getPopupImageUrl(); ?>" title="Terms and Conditions" />
         </a>
     </div>    
 </div>
@@ -42,7 +46,7 @@
         var popup = modal(options, $('#wizit-modal-content'));
         $(".wizit-learn-more-popup-link").click(function() {
             // set iframe url
-            document.getElementById('wizit-popup-image').setAttribute("src",window.checkoutConfig.payment.wizit.popupImage);
+            // document.getElementById('wizit-popup-image').setAttribute("src",window.checkoutConfig.payment.wizit.popupImage);
             // load modal
             $('#wizit-modal-content').modal('openModal');
         });
