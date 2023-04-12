@@ -2,28 +2,28 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
 
     <!-- <event name="payment_method_is_active">
-        <observer name="wizpay" instance="Wizpay\Wizpay\Observer\DataAssignObserver" />
+        <observer name="wizit" instance="Wizit\Wizit\Observer\DataAssignObserver" />
     </event>
     <event name="sales_order_invoice_save_before">
-        <observer name="wizpay_invoice_before" instance="Wizpay\Wizpay\Observer\SalesOrderInvoiceSaveBefore" />
+        <observer name="wizit_invoice_before" instance="Wizit\Wizit\Observer\SalesOrderInvoiceSaveBefore" />
     </event>
     <event name="sales_order_save_before">
-        <observer name="wizpay_order_before" instance="Wizpay\Wizpay\Observer\SalesOrderSaveBefore" />
+        <observer name="wizit_order_before" instance="Wizit\Wizit\Observer\SalesOrderSaveBefore" />
     </event> -->
 
     <event name="sales_order_payment_pay">
-        <observer name="wizpay_set_quote_is_paid_by_wizpay"
-                  instance="Wizpay\Wizpay\Observer\SetQuoteIsPaidByWizpay"/>
+        <observer name="wizit_set_quote_is_paid_by_wizit"
+                  instance="Wizit\Wizit\Observer\SetQuoteIsPaidByWizit"/>
     </event>
-    <event name="payment_method_assign_data_wizpay">
-        <observer name="wizpay_gateway_data_assign" instance="Wizpay\Wizpay\Observer\Payment\DataAssignObserver"/>
+    <event name="payment_method_assign_data_wizit">
+        <observer name="wizit_gateway_data_assign" instance="Wizit\Wizit\Observer\Payment\DataAssignObserver"/>
     </event>
     <!-- <event name="sales_order_shipment_save_before">
-        <observer name="wizpay_auth_capture_before_shipment"
-                  instance="Wizpay\Wizpay\Observer\AuthCaptureBeforeShipment"/>
+        <observer name="wizit_auth_capture_before_shipment"
+                  instance="Wizit\Wizit\Observer\AuthCaptureBeforeShipment"/>
     </event> -->
 
     <event name="payment_method_is_active">
-        <observer name="wizpay_gateway_payment_available" instance="Wizpay\Wizpay\Observer\Payment\PaymentMethodAvailable" />
+        <observer name="wizit_gateway_payment_available" instance="Wizit\Wizit\Observer\Payment\PaymentMethodAvailable" />
     </event>
 </config>

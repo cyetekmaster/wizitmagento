@@ -1,5 +1,5 @@
 <style>
-.wizpay-popup-body-content iframe{
+.wizit-popup-body-content iframe{
     width: 100%;
     min-height: 920px;
 }
@@ -8,9 +8,9 @@
 
 
 
-<div id="wizpay-modal-content">
-    <div class="modal-body-content wizpay-popup-body-content">
-        <iframe id="wizpay-popup-iframe" title="">
+<div id="wizit-modal-content">
+    <div class="modal-body-content wizit-popup-body-content">
+        <iframe id="wizit-popup-iframe" title="">
         </iframe>
     </div>    
 </div>
@@ -31,19 +31,19 @@
                 class: '',
                 click: function () {
                     // unload iframe
-                    document.getElementById('wizpay-popup-iframe').setAttribute("src","");
+                    document.getElementById('wizit-popup-iframe').setAttribute("src","");
                     // close modal
                     this.closeModal();
                 }
             }]
         };
 
-        var popup = modal(options, $('#wizpay-modal-content'));
-        $(".wizpay-learn-more-popup-link").click(function() {
+        var popup = modal(options, $('#wizit-modal-content'));
+        $(".wizit-learn-more-popup-link").click(function() {
             // set iframe url
-            document.getElementById('wizpay-popup-iframe').setAttribute("src","https://info.wizpay.com.au/HowItWorks/HowItWorks.html");
+            document.getElementById('wizit-popup-iframe').setAttribute("src","https://info.wizit.com.au/HowItWorks/HowItWorks.html");
             // load modal
-            $('#wizpay-modal-content').modal('openModal');
+            $('#wizit-modal-content').modal('openModal');
         });
 
 
@@ -106,8 +106,8 @@
                                             var total = currencyToNumber(newPriceNode.innerHTML);  
                                             
                                             if(total > 0){
-                                                // re-calc wizpay value
-                                                var priceElement = document.getElementById('wizpay-sub-amount-price');
+                                                // re-calc wizit value
+                                                var priceElement = document.getElementById('wizit-sub-amount-price');
                                                 
                                                 if(priceElement){
                                                     priceElement.innerHTML = '$' + (total / 4).toFixed(2);
@@ -132,7 +132,7 @@
 
             
             // watching pricing change
-            var currentProductIdNode = document.getElementById('wizpay-sub-amount-price-productid'); 
+            var currentProductIdNode = document.getElementById('wizit-sub-amount-price-productid'); 
 
             if(currentProductIdNode){
                 var productId = currentProductIdNode.value;
@@ -153,8 +153,8 @@
                                         var total = currencyToNumber(newValue.innerHTML);
                                         
                                         if(total > 0){
-                                            // re-calc wizpay value
-                                            var priceElement = document.getElementById('wizpay-sub-amount-price');
+                                            // re-calc wizit value
+                                            var priceElement = document.getElementById('wizit-sub-amount-price');
                                             if(priceElement){
                                                 priceElement.innerHTML = '$' + (total / 4).toFixed(2);
                                             }

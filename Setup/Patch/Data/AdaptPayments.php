@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizpay\Wizpay\Setup\Patch\Data;
+namespace Wizit\Wizit\Setup\Patch\Data;
 
 use Exception;
 use Magento\Framework\Exception\AlreadyExistsException;

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Wizpay\Wizpay\Model\Payment\Capture;
+namespace Wizit\Wizit\Model\Payment\Capture;
 
-use Wizpay\Wizpay\Model\Payment\AdditionalInformationInterface;
+use Wizit\Wizit\Model\Payment\AdditionalInformationInterface;
 
 class CancelOrderProcessor
 {
@@ -28,7 +28,7 @@ class CancelOrderProcessor
         $commandSubject = ['payment' => $this->paymentDataObjectFactory->create($payment)];
 
         $paymentState = $payment->getAdditionalInformation(AdditionalInformationInterface::WIZPAY_PAYMENT_STATE);
-        if ($paymentState == \Wizpay\Wizpay\Model\PaymentStateInterface::AUTH_APPROVED) {
+        if ($paymentState == \Wizit\Wizit\Model\PaymentStateInterface::AUTH_APPROVED) {
             $this->voidCommand->execute($commandSubject);
         } else {
             $this->refundCommand->execute(array_merge($commandSubject, [

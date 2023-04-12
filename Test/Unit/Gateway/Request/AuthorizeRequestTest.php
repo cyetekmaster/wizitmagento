@@ -3,13 +3,13 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Test\Unit\Gateway\Request;
+namespace Wizit\Wizit\Test\Unit\Gateway\Request;
 
 use Magento\Payment\Gateway\ConfigInterface;
 use Magento\Payment\Gateway\Data\AddressAdapterInterface;
 use Magento\Payment\Gateway\Data\OrderAdapterInterface;
 use Magento\Payment\Gateway\Data\PaymentDataObjectInterface;
-use Wizpay\Wizpay\Gateway\Request\AuthorizationRequest;
+use Wizit\Wizit\Gateway\Request\AuthorizationRequest;
 
 class AuthorizeRequestTest extends \PHPUnit_Framework_TestCase
 {

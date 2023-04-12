@@ -1,6 +1,6 @@
 <?php
  
-namespace Wizpay\Wizpay\Block\Catalog\Block\Product;
+namespace Wizit\Wizit\Block\Catalog\Block\Product;
  
 
 
@@ -8,15 +8,15 @@ class WzListProduct
 {
 
 
-    private $wizpay_helper;
+    private $wizit_helper;
     private $assetRepository;
     
 
     public function __construct(
-       \Wizpay\Wizpay\Helper\Data $helper,
+       \Wizit\Wizit\Helper\Data $helper,
        \Magento\Framework\View\Asset\Repository $assetRepository         
     ){
-        $this->wizpay_helper = $helper;
+        $this->wizit_helper = $helper;
         $this->assetRepository = $assetRepository;
     }
 
@@ -63,7 +63,7 @@ class WzListProduct
             }
         }
         
-        return $this->wizpay_helper->getWizpayMessage('List', $price, $this->assetRepository, $min_price, $max_price);    
+        return $this->wizit_helper->getWizitMessage('List', $price, $this->assetRepository, $min_price, $max_price);    
 
     }
 }

@@ -7,13 +7,13 @@
  * @link
  */
 
-namespace Wizpay\Wizpay\Controller\Index;
+namespace Wizit\Wizit\Controller\Index;
 
 
 
 use Magento\Sales\Model\Order;
-use \Wizpay\Wizpay\Helper\Data;
-use \Wizpay\Wizpay\Helper\Checkout;
+use \Wizit\Wizit\Helper\Data;
+use \Wizit\Wizit\Helper\Checkout;
 use \Magento\Checkout\Model\Session;
 use \Magento\Sales\Model\OrderFactory;
 use \Magento\Framework\App\Action\Action;
@@ -37,8 +37,8 @@ class WebhookComfirmUrl extends Success
         StockRegistryInterface $stockRegistry,
         //\Magento\Paypal\Model\Adminhtml\ExpressFactory $authorisationFactory,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
-        \Wizpay\Wizpay\Helper\Data $helper,
-        \Wizpay\Wizpay\Helper\Checkout $checkoutHelper,
+        \Wizit\Wizit\Helper\Data $helper,
+        \Wizit\Wizit\Helper\Checkout $checkoutHelper,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Psr\Log\LoggerInterface $logger,

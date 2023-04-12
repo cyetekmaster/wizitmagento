@@ -19,35 +19,35 @@ define(
         quote) {
         'use strict';
 
-        if(window.checkoutConfig.payment.wizpay.default_country != 'AU' ){
+        if(window.checkoutConfig.payment.wizit.default_country != 'AU' ){
             return Component.extend({
                 defaults: {
-                    template: 'Wizpay_Wizpay/payment/outzoneform',
+                    template: 'Wizit_Wizit/payment/outzoneform',
                 },
             });
         }
 
         return Component.extend({
             defaults: {
-                template: 'Wizpay_Wizpay/payment/form',
+                template: 'Wizit_Wizit/payment/form',
             },
 
 
             redirectAfterPlaceOrder: false,
 
             getCode: function () {
-                return 'wizpay';
+                return 'wizit';
             },
 
             getLogoUrl: function () {
-                return window.checkoutConfig.payment.wizpay.wizpayLogoUrl;
+                return window.checkoutConfig.payment.wizit.wizitLogoUrl;
             },
             getUrlc: function () {
-                return window.checkoutConfig.payment.wizpay.urls;
+                return window.checkoutConfig.payment.wizit.urls;
             },
 
             getTitle : function(){
-                return window.checkoutConfig.payment.wizpay.wizpayTitle;
+                return window.checkoutConfig.payment.wizit.wizitTitle;
             },
 
             totalamount: function () {
@@ -62,12 +62,12 @@ define(
             },
 
             getStoreCurrency: function () {
-                return window.checkoutConfig.payment.wizpay.getStoreCurrency;
+                return window.checkoutConfig.payment.wizit.getStoreCurrency;
 
             },
 
             afterPlaceOrder: function () {
-                window.location.replace(url.build('wizpay/index'));
+                window.location.replace(url.build('wizit/index'));
             },
 
             context: function () {
@@ -79,7 +79,7 @@ define(
             },
 
             popimage: function () {
-                return window.checkoutConfig.payment.wizpay.popimage;
+                return window.checkoutConfig.payment.wizit.popimage;
             },
 
             showPopup: function () {

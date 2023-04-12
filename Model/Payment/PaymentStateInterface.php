@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Wizpay\Wizpay\Model;
+namespace Wizit\Wizit\Model;
 
 interface PaymentStateInterface
 {

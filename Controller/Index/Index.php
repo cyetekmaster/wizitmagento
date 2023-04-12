@@ -7,10 +7,10 @@
  * @link
  */
 
-namespace Wizpay\Wizpay\Controller\Index;
+namespace Wizit\Wizit\Controller\Index;
 
-use \Wizpay\Wizpay\Helper\Data;
-use \Wizpay\Wizpay\Helper\Checkout;
+use \Wizit\Wizit\Helper\Data;
+use \Wizit\Wizit\Helper\Checkout;
 use \Magento\Checkout\Model\Session;
 use \Magento\Sales\Model\OrderFactory;
 use \Magento\Framework\App\Action\Action;
@@ -66,8 +66,8 @@ class Index extends Action
         StockRegistryInterface $stockRegistry,
         //\Magento\Paypal\Model\Adminhtml\ExpressFactory $authorisationFactory,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
-        \Wizpay\Wizpay\Helper\Data $helper,
-        \Wizpay\Wizpay\Helper\Checkout $checkoutHelper,
+        \Wizit\Wizit\Helper\Data $helper,
+        \Wizit\Wizit\Helper\Checkout $checkoutHelper,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Psr\Log\LoggerInterface $logger,
@@ -152,7 +152,7 @@ class Index extends Action
     {
 
 
-        $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizpay PlaceOrderProcessor Index start<<<<<<<<<<<<<<--------------");
+        $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizit PlaceOrderProcessor Index start<<<<<<<<<<<<<<--------------");
 
         $orders = $this->_checkoutSession->getLastRealOrder();
         $orderId = $orders->getEntityId();
@@ -190,7 +190,7 @@ class Index extends Action
                 $modif_order->save();
 
 
-                $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizpay PlaceOrderProcessor Index end<<<<<<<<<<<<<<--------------");
+                $this->logger->info("-------------->>>>>>>>>>>>>>>>Wizit PlaceOrderProcessor Index end<<<<<<<<<<<<<<--------------");
 
                 // return retirect url
                 return $resultRedirect;
@@ -206,7 +206,7 @@ class Index extends Action
                 $_checkoutSession->replaceQuote($quote);
                 $resultRedirect = $this->resultRedirectFactory->create();
                 $resultRedirect->setPath('checkout/cart');
-                $messageconc = "Something went wrong while finalising your payment. Wizpay ";
+                $messageconc = "Something went wrong while finalising your payment. Wizit ";
                 $this->messageManager->addError(__($messageconc . $wzresponse));
                 //$this->messageManager->addWarningMessage('Payment Failed.');
                 return $resultRedirect;
@@ -414,7 +414,7 @@ class Index extends Action
             ]
         ];
 
-        $get_api_key = $this->helper->getConfig('payment/wizpay/api_key');
+        $get_api_key = $this->helper->getConfig('payment/wizit/api_key');
         $wzresponse = $this->helper->callCcheckoutsRredirectAapi($get_api_key, $data);
         return $wzresponse;
     }

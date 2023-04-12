@@ -3,15 +3,15 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Test\Unit\Observer;
+namespace Wizit\Wizit\Test\Unit\Observer;
 
 use Magento\Framework\DataObject;
 use Magento\Framework\Event;
 use Magento\Payment\Model\InfoInterface;
 use Magento\Payment\Model\MethodInterface;
 use Magento\Payment\Observer\AbstractDataAssignObserver;
-use Wizpay\Wizpay\Gateway\Http\Client\ClientMock;
-use Wizpay\Wizpay\Observer\DataAssignObserver;
+use Wizit\Wizit\Gateway\Http\Client\ClientMock;
+use Wizit\Wizit\Observer\DataAssignObserver;
 
 class DataAssignObserverTest extends \PHPUnit_Framework_TestCase
 {

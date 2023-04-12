@@ -16,8 +16,8 @@ define(
         'use strict';
         rendererList.push(
             {
-                type: 'wizpay',
-                component: 'Wizpay_Wizpay/js/view/payment/method-renderer/wizpay'
+                type: 'wizit',
+                component: 'Wizit_Wizit/js/view/payment/method-renderer/wizit'
             }
         );
         /** Add view logic here if needed */

@@ -3,10 +3,10 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Test\Unit\Model\Adminhtml\Source;
+namespace Wizit\Wizit\Test\Unit\Model\Adminhtml\Source;
 
 use Magento\Payment\Model\Method\AbstractMethod;
-use Wizpay\Wizpay\Model\Adminhtml\Source\PaymentAction;
+use Wizit\Wizit\Model\Adminhtml\Source\PaymentAction;
 
 class PaymentActionTest extends \PHPUnit_Framework_TestCase
 {

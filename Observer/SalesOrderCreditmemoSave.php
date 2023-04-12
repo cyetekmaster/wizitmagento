@@ -1,9 +1,9 @@
 <?php
-namespace Wizpay\Wizpay\Observer;
+namespace Wizit\Wizit\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 
 class SalesOrderCreditmemoSave implements ObserverInterface
 {
@@ -40,7 +40,7 @@ class SalesOrderCreditmemoSave implements ObserverInterface
 
         
 
-        if ($payment->getMethod() == 'wizpay') {
+        if ($payment->getMethod() == 'wizit') {
 
             if ($creditmemo->getBaseGrandTotal() <= 0) {
 
@@ -87,7 +87,7 @@ class SalesOrderCreditmemoSave implements ObserverInterface
 
 
             $paymentEventMerchantReference = 'REF-' . $orderId;
-            $wz_api_key = $this->helper->getConfig('payment/wizpay/api_key');
+            $wz_api_key = $this->helper->getConfig('payment/wizit/api_key');
             $uniqid = hash('md5', time() . $orderId);
             $api_data = [
               'RequestId' => $uniqid,
@@ -122,7 +122,7 @@ class SalesOrderCreditmemoSave implements ObserverInterface
                 $payment->save();
                 $order->save();
 
-                $order->addStatusHistoryComment(__('Wizpay Payment Refund Authorised. Wizpay Transaction ID (' . $apiOrderId . ') Amount: $' . $creditmemo->getBaseGrandTotal()))->save(); // phpcs:ignore
+                $order->addStatusHistoryComment(__('Wizit Payment Refund Authorised. Wizit Transaction ID (' . $apiOrderId . ') Amount: $' . $creditmemo->getBaseGrandTotal()))->save(); // phpcs:ignore
                 $this->messageManager->addSuccess(__("Refund has been created successfully."));
             }
 

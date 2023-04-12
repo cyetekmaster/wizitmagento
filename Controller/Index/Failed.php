@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizpay\Wizpay\Controller\Index;
+namespace Wizit\Wizit\Controller\Index;
 
 use Magento\Sales\Model\Order;
 
@@ -18,16 +18,16 @@ class Failed extends Index
             $orderId = $this->getRequest()->getParam('orderid');
             $merchantReference = $this->getRequest()->getParam('mref');
             $orderId = $this->getRequest()->getParam('orderid');
-            $failed_url = $this->helper->getConfig('payment/wizpay/failed_url');
+            $failed_url = $this->helper->getConfig('payment/wizit/failed_url');
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 
             $order = $objectManager->create('\Magento\Sales\Model\OrderRepository')->get($orderId); // phpcs:ignore  
 
-            $this->getCheckoutHelper()->cancelCurrentOrder("Order #".($order->getId())." Your payment through Wizpay has been cancelled."); // phpcs:ignore
+            $this->getCheckoutHelper()->cancelCurrentOrder("Order #".($order->getId())." Your payment through Wizit has been cancelled."); // phpcs:ignore
             //$cartObject = $objectManager->create('Magento\Checkout\Model\Cart')->truncate();
             //$cartObject->saveQuote();
             $this->getCheckoutHelper()->restoreQuote();
-            $this->getMessageManager()->addErrorMessage(__("Your payment through Wizpay has been cancelled.")); // phpcs:ignore
+            $this->getMessageManager()->addErrorMessage(__("Your payment through Wizit has been cancelled.")); // phpcs:ignore
 
             if (!empty($failed_url)) {
 

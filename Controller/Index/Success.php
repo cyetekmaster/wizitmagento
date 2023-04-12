@@ -1,10 +1,10 @@
 <?php
 
-namespace Wizpay\Wizpay\Controller\Index;
+namespace Wizit\Wizit\Controller\Index;
 
 use Magento\Sales\Model\Order;
-use \Wizpay\Wizpay\Helper\Data;
-use \Wizpay\Wizpay\Helper\Checkout;
+use \Wizit\Wizit\Helper\Data;
+use \Wizit\Wizit\Helper\Checkout;
 use \Magento\Checkout\Model\Session;
 use \Magento\Sales\Model\OrderFactory;
 use \Magento\Framework\App\Action\Action;
@@ -34,8 +34,8 @@ class Success extends Index
         StockRegistryInterface $stockRegistry,
         //\Magento\Paypal\Model\Adminhtml\ExpressFactory $authorisationFactory,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
-        \Wizpay\Wizpay\Helper\Data $helper,
-        \Wizpay\Wizpay\Helper\Checkout $checkoutHelper,
+        \Wizit\Wizit\Helper\Data $helper,
+        \Wizit\Wizit\Helper\Checkout $checkoutHelper,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Psr\Log\LoggerInterface $logger,
@@ -117,20 +117,20 @@ class Success extends Index
             $payment->setAdditionalInformation($additionalInformation);
             $payment->save();
 
-            $wz_api_key = $this->helper->getConfig('payment/wizpay/api_key');
+            $wz_api_key = $this->helper->getConfig('payment/wizit/api_key');
 
-            $failed_url = $this->helper->getConfig('payment/wizpay/failed_url');
-            $success_url = $this->helper->getConfig('payment/wizpay/success_url');
-            $capture_settings = '1';// $this->helper->getConfig('payment/wizpay/capture');
+            $failed_url = $this->helper->getConfig('payment/wizit/failed_url');
+            $success_url = $this->helper->getConfig('payment/wizit/success_url');
+            $capture_settings = '1';// $this->helper->getConfig('payment/wizit/capture');
             $wzresponse = $this->helper->getOrderPaymentStatusApi($wz_api_key, $api_data);
 
             if (!is_array($wzresponse)) {
                 $this->logger->info("-------------------->>>>>>>>>>>>>>>>>>WIZPAY CALL getOrderPaymentStatusApi START<<<<<<<<<<<<<<<<<<<<-------------------");
-                $messageconc = "was rejected by Wizpay. Transaction #$wzTxnId.";
+                $messageconc = "was rejected by Wizit. Transaction #$wzTxnId.";
                 $this->getCheckoutHelper()->cancelCurrentOrder("Order #".($order->getId())." ". $messageconc);
 
                 $this->getCheckoutHelper()->restoreQuote(); //restore cart
-                $this->getMessageManager()->addErrorMessage(__("There was an error in the Wizpay payment"));
+                $this->getMessageManager()->addErrorMessage(__("There was an error in the Wizit payment"));
 
                 if (!empty($failed_url)) {
 
@@ -229,11 +229,11 @@ class Success extends Index
                         if (!is_array($wzresponse)) {
 
                             $this->getCheckoutHelper()->cancelCurrentOrder(
-                            "Order #".($order->getId())." was rejected by Wizpay. Transaction ID" . $apiOrderId); // phpcs:ignore
+                            "Order #".($order->getId())." was rejected by Wizit. Transaction ID" . $apiOrderId); // phpcs:ignore
                             $this->getCheckoutHelper()->restoreQuote(); //restore cart
                             $this->getMessageManager()->addErrorMessage(
                                 __(
-                                    "There was an error in the Wizpay payment"
+                                    "There was an error in the Wizit payment"
                                 )
                             );
 
@@ -286,7 +286,7 @@ class Success extends Index
 
                             $order->addStatusToHistory(
                                 'processing',
-                                'Your payment with Wizpay is complete. Wizpay Transaction ID: '
+                                'Your payment with Wizit is complete. Wizit Transaction ID: '
                                 . $apiOrderId,
                                 false
                             );
@@ -309,7 +309,7 @@ class Success extends Index
                         $currentStatus = $order->getState();
                         $status = 'pending_capture';
                         $comment = 'In order to capture this transaction, please make the partial capture manually.';
-                        $comment .= ' Wizpay Transaction ID ('. $wzTxnId .')';
+                        $comment .= ' Wizit Transaction ID ('. $wzTxnId .')';
                         $order->addStatusToHistory('pending_capture', $comment, false);
                         $isNotified = false;
                         $order->setState($status)->setStatus($status);

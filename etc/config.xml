@@ -8,9 +8,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <wizpay>
+            <wizit>
                 <debug>1</debug>
-                <model>Wizpay\Wizpay\Model\PaymentMethodModel</model>
+                <model>Wizit\Wizit\Model\PaymentMethodModel</model>
                 <payment_action>authorize</payment_action>
                 <active>1</active> <!--Plugin disabled by default. The user must configure it first.-->
                 <order_status>pending_payment</order_status>
@@ -34,7 +34,7 @@
                     <payment_info_on_cart_pages>0</payment_info_on_cart_pages>
                     <payment_info_on_catetory_pages>0</payment_info_on_catetory_pages>
                 </website_customisation>
-            </wizpay>
+            </wizit>
         </payment>
     </default>
 </config>

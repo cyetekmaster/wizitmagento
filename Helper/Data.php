@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizpay\Wizpay\Helper;
+namespace Wizit\Wizit\Helper;
 
 
 use \Magento\Framework\App\Helper\AbstractHelper;
@@ -23,8 +23,8 @@ class Data extends AbstractHelper
      * Base API URL setting
      * 
      */
-    private  $base_url = 'https://api.wizpay.com.au/';
-    private  $test_url = 'https://uatapi.wizpay.com.au/';
+    private  $base_url = 'https://api.wizit.com.au/';
+    private  $test_url = 'https://uatapi.wizit.com.au/';
     private  $version = 'v1/';
     private  $intermediate = 'api/';
     private  $apicall = '';
@@ -106,9 +106,9 @@ class Data extends AbstractHelper
         return '1.0.6';
     }
 
-    public function initiateWizpayLogger($log)
+    public function initiateWizitLogger($log)
     {
-        $enable_debug = $this->getConfig('payment/wizpay/debug');
+        $enable_debug = $this->getConfig('payment/wizit/debug');
 
         if(intval($enable_debug, 0) == 1 ){
             $this->logger->info($log);
@@ -119,7 +119,7 @@ class Data extends AbstractHelper
 
     public function createWcog($apiresult)
     {
-        $capture = '1';// $this->getConfig('payment/wizpay/capture');
+        $capture = '1';// $this->getConfig('payment/wizit/capture');
         $getAmount = $this->getDataFromJsonObj('originalAmount', $apiresult); // phpcs:ignore
         $amount = $this->getDataFromJsonObj('amount', $getAmount); // phpcs:ignore
         $logdata = ['CaptureSettings' =>$capture,
@@ -134,7 +134,7 @@ class Data extends AbstractHelper
             'paymentStatus'         => $this->getDataFromJsonObj('paymentStatus', $getAmount)
         ]; // phpcs:ignore
         
-        $this->initiateWizpayLogger(json_encode($logdata));
+        $this->initiateWizitLogger(json_encode($logdata));
     }
 
     public function getStoreCurrency()
@@ -150,10 +150,10 @@ class Data extends AbstractHelper
 
 
         // if try to get api key then check environment
-        if($config_path == 'payment/wizpay/api_key'){
-            $environment = $this->scopeConfig->getValue('payment/wizpay/environment', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        if($config_path == 'payment/wizit/api_key'){
+            $environment = $this->scopeConfig->getValue('payment/wizit/environment', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
             if( $environment == 1){
-                $setting = $this->scopeConfig->getValue('payment/wizpay/api_key_sandbox', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+                $setting = $this->scopeConfig->getValue('payment/wizit/api_key_sandbox', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
                 
             }else{
@@ -194,7 +194,7 @@ class Data extends AbstractHelper
      */
     public function getCompleteUrl()
     {
-        return $this->getStoreManager()->getStore()->getBaseUrl() . 'wizpay/index/success';
+        return $this->getStoreManager()->getStore()->getBaseUrl() . 'wizit/index/success';
     }
 
     /**
@@ -204,13 +204,13 @@ class Data extends AbstractHelper
      */
     public function getCancelledUrl()
     {
-        return $this->getStoreManager()->getStore()->getBaseUrl() . "wizpay/index/failed";
+        return $this->getStoreManager()->getStore()->getBaseUrl() . "wizit/index/failed";
     }
 
 
     public function getWebhookUrl()
     {
-        return $this->getStoreManager()->getStore()->getBaseUrl() . "wizpay/index/webhookcomfirmurl";
+        return $this->getStoreManager()->getStore()->getBaseUrl() . "wizit/index/webhookcomfirmurl";
     }
 
     // private function apiUrl() {
@@ -221,7 +221,7 @@ class Data extends AbstractHelper
     {        
         if(!isset($environment)){
             // get from setting
-            $environment = $this->getConfig('payment/wizpay/environment');
+            $environment = $this->getConfig('payment/wizit/environment');
         }
         
 
@@ -234,16 +234,16 @@ class Data extends AbstractHelper
         return $this->curlClient;
     }
 
-    private function getWizpayapi($url, $apikey)
+    private function getWizitapi($url, $apikey)
     {
 
-        $this->initiateWizpayLogger('--------------------------getWizpayapi start------------------------------------------');
-        $this->initiateWizpayLogger('>>>>>>>>>>apikey: ' . $apikey . PHP_EOL);
-        $this->initiateWizpayLogger('>>>>>>>>>>URI: ' . $url . PHP_EOL);
+        $this->initiateWizitLogger('--------------------------getWizitapi start------------------------------------------');
+        $this->initiateWizitLogger('>>>>>>>>>>apikey: ' . $apikey . PHP_EOL);
+        $this->initiateWizitLogger('>>>>>>>>>>URI: ' . $url . PHP_EOL);
         
         try {
 
-            //$api_key = $this->getConfig('payment/opmc_wizpay/api_key');
+            //$api_key = $this->getConfig('payment/opmc_wizit/api_key');
             
             // $this->getCurlClient()->setOption(CURLOPT_RETURNTRANSFER, true);
             $this->getCurlClient()->setOption(CURLOPT_SSL_VERIFYHOST, false);
@@ -268,38 +268,38 @@ class Data extends AbstractHelper
             // die('asfs');
             if (json_last_error() !== JSON_ERROR_NONE) {
                 $error = true;
-                $errormessage = 'Error: Invalid Json Format received from Wizpay API. Please contact customer support in this regard!!'; // phpcs:ignore
+                $errormessage = 'Error: Invalid Json Format received from Wizit API. Please contact customer support in this regard!!'; // phpcs:ignore
 
-                $this->initiateWizpayLogger('>>>>>>>>response: ' . json_encode($response) . PHP_EOL);
-                $this->initiateWizpayLogger('>>>>>>>>error: ' . $errormessage . PHP_EOL);
-                $this->initiateWizpayLogger('--------------------------getWizpayapi end------------------------------------------');
+                $this->initiateWizitLogger('>>>>>>>>response: ' . json_encode($response) . PHP_EOL);
+                $this->initiateWizitLogger('>>>>>>>>error: ' . $errormessage . PHP_EOL);
+                $this->initiateWizitLogger('--------------------------getWizitapi end------------------------------------------');
 
                 return $errormessage;
             }
 
-            $this->initiateWizpayLogger('>>>>>>>>response: ' . json_encode($finalresult) . PHP_EOL);
-            $this->initiateWizpayLogger('--------------------------getWizpayapi end------------------------------------------');
+            $this->initiateWizitLogger('>>>>>>>>response: ' . json_encode($finalresult) . PHP_EOL);
+            $this->initiateWizitLogger('--------------------------getWizitapi end------------------------------------------');
 
             return $finalresult;
 
         } catch (\Exception $e) {
-            $this->initiateWizpayLogger('>>>>>>>>error: ' . $e->getMessage() . PHP_EOL);
-            $this->initiateWizpayLogger('--------------------------getWizpayapi end------------------------------------------');
+            $this->initiateWizitLogger('>>>>>>>>error: ' . $e->getMessage() . PHP_EOL);
+            $this->initiateWizitLogger('--------------------------getWizitapi end------------------------------------------');
             return $e->getMessage();
         }
     }
 
-    private function postWizpayapi($url, $requestbody, $apikey)
+    private function postWizitapi($url, $requestbody, $apikey)
     {
         $this->getCurlClient()->setOption(CURLOPT_RETURNTRANSFER, true);
         $this->getCurlClient()->setOption(CURLOPT_SSL_VERIFYHOST, false);
         $this->getCurlClient()->setOption(CURLOPT_SSL_VERIFYPEER, false);
 
 
-        $this->initiateWizpayLogger('--------------------------postWizpayapi start------------------------------------------');
-        $this->initiateWizpayLogger('>>>>>>>>>>apikey: ' . $apikey . PHP_EOL);
-        $this->initiateWizpayLogger('>>>>>>>>>>URI: ' . $url . PHP_EOL);
-        $this->initiateWizpayLogger('>>>>>>>>>>Request: ' . json_encode($requestbody) . PHP_EOL);
+        $this->initiateWizitLogger('--------------------------postWizitapi start------------------------------------------');
+        $this->initiateWizitLogger('>>>>>>>>>>apikey: ' . $apikey . PHP_EOL);
+        $this->initiateWizitLogger('>>>>>>>>>>URI: ' . $url . PHP_EOL);
+        $this->initiateWizitLogger('>>>>>>>>>>Request: ' . json_encode($requestbody) . PHP_EOL);
 
         try {
             $postdata = json_encode($requestbody);
@@ -312,25 +312,25 @@ class Data extends AbstractHelper
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 $error = true;
-                $errormessage = 'Error: Invalid Json Format received from Wizpay API. Please contact customer support in this regard!!'; // phpcs:ignore
+                $errormessage = 'Error: Invalid Json Format received from Wizit API. Please contact customer support in this regard!!'; // phpcs:ignore
 
-                $this->initiateWizpayLogger('>>>>>>>>response: ' . json_encode($response) . PHP_EOL);
-                $this->initiateWizpayLogger('>>>>>>>>error: ' . $errormessage . PHP_EOL);
-                $this->initiateWizpayLogger('--------------------------postWizpayapi end------------------------------------------');
+                $this->initiateWizitLogger('>>>>>>>>response: ' . json_encode($response) . PHP_EOL);
+                $this->initiateWizitLogger('>>>>>>>>error: ' . $errormessage . PHP_EOL);
+                $this->initiateWizitLogger('--------------------------postWizitapi end------------------------------------------');
 
                 return $errormessage;
             }
 
 
-            $this->initiateWizpayLogger('>>>>>>>>response: ' . json_encode($finalresult) . PHP_EOL);
-            $this->initiateWizpayLogger('--------------------------postWizpayapi end------------------------------------------');
+            $this->initiateWizitLogger('>>>>>>>>response: ' . json_encode($finalresult) . PHP_EOL);
+            $this->initiateWizitLogger('--------------------------postWizitapi end------------------------------------------');
 
             return $finalresult;
 
         } catch (\Exception $e) {
 
-            $this->initiateWizpayLogger('>>>>>>>>error: ' . $e->getMessage() . PHP_EOL);
-            $this->initiateWizpayLogger('--------------------------postWizpayapi end------------------------------------------');
+            $this->initiateWizitLogger('>>>>>>>>error: ' . $e->getMessage() . PHP_EOL);
+            $this->initiateWizitLogger('--------------------------postWizitapi end------------------------------------------');
 
             return $e->getMessage();
         }
@@ -342,7 +342,7 @@ class Data extends AbstractHelper
         $actualapicall = 'GetPurchaseLimit';
         $finalapiurl = $this->apiUrl($environment) . $actualapicall;
         //$finalapiurl = 'http://mywp.preyansh.in/wzapi.php';
-        $apiresult = $this->getWizpayapi($finalapiurl, $apikey);
+        $apiresult = $this->getWizitapi($finalapiurl, $apikey);
         
         // echo $finalapiurl;
         // echo "<Pre>";
@@ -350,13 +350,13 @@ class Data extends AbstractHelper
         // die('asd');
         if ('' == $apiresult) {
             $error = true;
-            $errormessage = 'Error: Looks like your Website IP Address is not white-listed in Wizpay. Please connect with Wizpay support team!'; // phpcs:ignore
+            $errormessage = 'Error: Looks like your Website IP Address is not white-listed in Wizit. Please connect with Wizit support team!'; // phpcs:ignore
             $apiresult = $errormessage;
             
 
         } elseif (false !== $apiresult && '200' == $apiresult['responseCode']) {
 
-            $this->initiateWizpayLogger('success:'.json_encode($apiresult));
+            $this->initiateWizitLogger('success:'.json_encode($apiresult));
 
         } elseif ('402' == $apiresult['responseCode'] || '412' == $apiresult['responseCode']) {
             $error = true;
@@ -367,7 +367,7 @@ class Data extends AbstractHelper
             
         } else {
             $error = true;
-            $errormessage = 'Error: Please enter a valid Wizpay API Key!';
+            $errormessage = 'Error: Please enter a valid Wizit API Key!';
             $apiresult = $errormessage;
             
         }
@@ -382,7 +382,7 @@ class Data extends AbstractHelper
         $finalapiurl = $this->apiUrl() . $actualapicall;
         
         
-        $apiresult = $this->postWizpayapi($finalapiurl, $requestbody, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $requestbody, $apikey);
 
         
         $this->createWcog($apiresult);
@@ -423,7 +423,7 @@ class Data extends AbstractHelper
         //$finalapiurl = 'http://mywp.preyansh.in/wzapi.php';
         
         
-        $apiresult = $this->postWizpayapi($finalapiurl, $requestbody, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $requestbody, $apikey);
         
         $this->createWcog($apiresult);
 
@@ -435,7 +435,7 @@ class Data extends AbstractHelper
         $actualapicall = 'Payment/transactionstatus';
         $finalapiurl = $this->apiUrl() . $actualapicall;
         //print_r($apikey);
-        $apiresult = $this->postWizpayapi($finalapiurl, $requestbody, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $requestbody, $apikey);
         
         $this->createWcog($apiresult);
 
@@ -473,19 +473,19 @@ class Data extends AbstractHelper
         $apiOrderId = $apiresult['transactionId'];
         if ('APPROVED' != $apiresult['transactionStatus'] && 'COMPLETED' != $apiresult['transactionStatus']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
         }
 
         if ('AUTH_APPROVED' != $apiresult['paymentStatus'] && 'CAPTURED' != $apiresult['paymentStatus'] && 'PARTIALLY_CAPTURED' != $apiresult['paymentStatus']) { // phpcs:ignore
             $orderMessage = '';
             if ('AUTH_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+                $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
             } elseif ('CAPTURE_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction Wizpay Transaction ' . $apiOrderId . ' Capture Attempt has been declined'; // phpcs:ignore
+                $errormessage = 'Wizit Transaction Wizit Transaction ' . $apiOrderId . ' Capture Attempt has been declined'; // phpcs:ignore
             } elseif ('VOIDED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' VOID';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' VOID';
             } else {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Payment Failed.';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Payment Failed.';
             }
         }
         return $errormessage;
@@ -496,7 +496,7 @@ class Data extends AbstractHelper
         $actualapicall = 'Payment/transactioncapture';
         $finalapiurl = $this->apiUrl() . $actualapicall;
         
-        $apiresult = $this->postWizpayapi($finalapiurl, $requestbody, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $requestbody, $apikey);
 
         
         $this->createWcog($apiresult);
@@ -535,27 +535,27 @@ class Data extends AbstractHelper
         $apiOrderId = $apiresult['transactionId'];
         if ('APPROVED' != $apiresult['transactionStatus'] && 'COMPLETED' != $apiresult['transactionStatus']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
            
         }
 
         if ('3005' == $apiresult['errorCode']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
             
 
         }
 
         if ('3008' == $apiresult['errorCode']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
             
 
         }
 
         if ('3006' == $apiresult['errorCode']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
             
             
         }
@@ -565,13 +565,13 @@ class Data extends AbstractHelper
         'CAPTURE_DECLINED' != $apiresult['paymentStatus']) {
             $orderMessage = '';
             if ('AUTH_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+                $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
             } elseif ('CAPTURE_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Capture Attempt has been declined';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Capture Attempt has been declined';
             } elseif ('VOIDED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' VOID';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' VOID';
             } else {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Payment Failed.';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Payment Failed.';
             }
             
             
@@ -584,7 +584,7 @@ class Data extends AbstractHelper
         $actualapicall = 'Payment/transactioncapture/' . $apiOrderId;
         $finalapiurl = $this->apiUrl() . $actualapicall;
         
-        $apiresult = $this->postWizpayapi($finalapiurl, $requestbody, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $requestbody, $apikey);
        
         
         $this->createWcog($apiresult);
@@ -623,27 +623,27 @@ class Data extends AbstractHelper
         $apiOrderId = $apiresult['transactionId'];
         if ('APPROVED' != $apiresult['transactionStatus'] && 'COMPLETED' != $apiresult['transactionStatus']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
             
         }
 
         if ('3005' == $apiresult['errorCode']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
             
 
         }
 
         if ('3008' == $apiresult['errorCode']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
             
 
         }
 
         if ('3006' == $apiresult['errorCode']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' Reason: ' . $apiresult['errorMessage']; // phpcs:ignore
             
             
         }
@@ -651,13 +651,13 @@ class Data extends AbstractHelper
         if ('AUTH_APPROVED' != $apiresult['paymentStatus'] && 'PARTIALLY_CAPTURED' != $apiresult['paymentStatus'] && 'CAPTURED' != $apiresult['paymentStatus'] && 'CAPTURE_DECLINED' != $apiresult['paymentStatus']) { // phpcs:ignore
             $orderMessage = '';
             if ('AUTH_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+                $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
             } elseif ('CAPTURE_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Capture Attempt has been declined';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Capture Attempt has been declined';
             } elseif ('VOIDED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' VOID';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' VOID';
             } else {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Payment Failed.';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Payment Failed.';
             }
             
             
@@ -671,7 +671,7 @@ class Data extends AbstractHelper
         $actualapicall = 'Payment/refund/' . $apiOrderId;
         $finalapiurl = $this->apiUrl() . $actualapicall;
 
-        $apiresult = $this->postWizpayapi($finalapiurl, $requestbody, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $requestbody, $apikey);
         
         $this->createWcog($apiresult);
 
@@ -712,7 +712,7 @@ class Data extends AbstractHelper
         $apiOrderId = $apiresult['transactionId'];
         if ('APPROVED' != $apiresult['transactionStatus'] && 'COMPLETED' != $apiresult['transactionStatus']) {
 
-            $errormessage = 'Wizpay Payment Failed. Wizpay Transaction ' . $apiOrderId . ' has been Declined';
+            $errormessage = 'Wizit Payment Failed. Wizit Transaction ' . $apiOrderId . ' has been Declined';
             
         }
 
@@ -721,13 +721,13 @@ class Data extends AbstractHelper
             'CAPTURED' != $apiresult['paymentStatus']) {
             $orderMessage = '';
             if ('AUTH_DECLINED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Payment Failed. Wizpay Transaction '
+                $errormessage = 'Wizit Payment Failed. Wizit Transaction '
                 . $apiOrderId . ' has been Declined';
            
             } elseif ('VOIDED' == $apiresult['paymentStatus']) {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' VOID';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' VOID';
             } else {
-                $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Payment Failed.';
+                $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Payment Failed.';
             }
             
         }
@@ -740,7 +740,7 @@ class Data extends AbstractHelper
         $actualapicall = 'Payment/voidtransaction/' . $wz_txn_id;
         $finalapiurl = $this->apiUrl() . $actualapicall;
         
-        $apiresult = $this->postWizpayapi($finalapiurl, $wz_txn_id, $apikey);
+        $apiresult = $this->postWizitapi($finalapiurl, $wz_txn_id, $apikey);
         
         $this->createWcog($apiresult);
 
@@ -784,60 +784,60 @@ class Data extends AbstractHelper
         if ('COMPLETED' != $apiresult['transactionStatus'] &&
             'COMPLETED' != $apiresult['transactionStatus']) {
 
-            $errormessage = "Wizpay Payment cancel doesn't authorised. Wizpay Transaction " . $apiOrderId . '  has been Declined!'; // phpcs:ignore
+            $errormessage = "Wizit Payment cancel doesn't authorised. Wizit Transaction " . $apiOrderId . '  has been Declined!'; // phpcs:ignore
             
         }
 
         if ('VOIDED' != $apiresult['paymentStatus'] && 'CAPTURED' != $apiresult['paymentStatus']) {
             $orderMessage = '';
                
-            $errormessage = 'Wizpay Transaction ' . $apiOrderId . ' Payment Cancel Failed';
+            $errormessage = 'Wizit Transaction ' . $apiOrderId . ' Payment Cancel Failed';
             
         }
         return $errormessage;
     }
 
-    private $wizpay_info_style_oneline = 'display: block; padding-top: 5px; padding-bottom: 5px;';
-    private $wizpay_info_style_product_list = '';
-    private $wizpay_info_style_product_detail = '';
-    private $wizpay_info_logo_style = 'max-width: 100px; max-height: 30px; padding-top: 5px; border: none !important; vertical-align: bottom; display: inline-block;';
-    private $wizpay_info_content_style = 'line-height: 25px;';
+    private $wizit_info_style_oneline = 'display: block; padding-top: 5px; padding-bottom: 5px;';
+    private $wizit_info_style_product_list = '';
+    private $wizit_info_style_product_detail = '';
+    private $wizit_info_logo_style = 'max-width: 100px; max-height: 30px; padding-top: 5px; border: none !important; vertical-align: bottom; display: inline-block;';
+    private $wizit_info_content_style = 'line-height: 25px;';
     
 
 
 
-    public function getWizpayMessage($type, $price, $assetRepository, $min_price = 0, $max_price = 99999, $product_id = 0){
-        $banktransferLogoUrl = $assetRepository->getUrlWithParams('Wizpay_Wizpay::images/Group.png', []);
+    public function getWizitMessage($type, $price, $assetRepository, $min_price = 0, $max_price = 99999, $product_id = 0){
+        $banktransferLogoUrl = $assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
                
         // get plugin setting
-        $wizpay_is_enable = $this->getConfig('payment/wizpay/active');
+        $wizit_is_enable = $this->getConfig('payment/wizit/active');
         // get page setting
-        $show_on_product_cat_page = $this->getConfig('payment/wizpay/website_customisation/payment_info_on_catetory_pages');
-        $show_on_product_page = $this->getConfig('payment/wizpay/website_customisation/payment_info_on_product_pages');
-        $show_on_cat_page = $this->getConfig('payment/wizpay/website_customisation/payment_info_on_cart_pages');
+        $show_on_product_cat_page = $this->getConfig('payment/wizit/website_customisation/payment_info_on_catetory_pages');
+        $show_on_product_page = $this->getConfig('payment/wizit/website_customisation/payment_info_on_product_pages');
+        $show_on_cat_page = $this->getConfig('payment/wizit/website_customisation/payment_info_on_cart_pages');
         // get limit
-        $wizpay_minimum_payment_amount = $this->getConfig('payment/wizpay/min_max_wizpay/wz_min_amount');
-        $wizpay_maxmum_payment_amount = $this->getConfig('payment/wizpay/min_max_wizpay/wz_max_amount');
+        $wizit_minimum_payment_amount = $this->getConfig('payment/wizit/min_max_wizit/wz_min_amount');
+        $wizit_maxmum_payment_amount = $this->getConfig('payment/wizit/min_max_wizit/wz_max_amount');
 
-        $wizpay_merchant_min_amount =  $this->getConfig('payment/wizpay/min_max_wizpay/merchant_min_amount');
-        $wizpay_merchant_max_amount =  $this->getConfig('payment/wizpay/min_max_wizpay/merchant_max_amount');
+        $wizit_merchant_min_amount =  $this->getConfig('payment/wizit/min_max_wizit/merchant_min_amount');
+        $wizit_merchant_max_amount =  $this->getConfig('payment/wizit/min_max_wizit/merchant_max_amount');
 
 
-        if (empty($wizpay_merchant_min_amount) || empty($wizpay_merchant_max_amount))
+        if (empty($wizit_merchant_min_amount) || empty($wizit_merchant_max_amount))
         {
 
-            $wizpay_merchant_min_amount = $wizpay_minimum_payment_amount;
-            $wizpay_merchant_max_amount = $wizpay_maxmum_payment_amount;
+            $wizit_merchant_min_amount = $wizit_minimum_payment_amount;
+            $wizit_merchant_max_amount = $wizit_maxmum_payment_amount;
         }
 
 
-        if(intval($wizpay_is_enable, 0) == 1 
+        if(intval($wizit_is_enable, 0) == 1 
            && (
-                (floatval($wizpay_merchant_min_amount) <= $price && $price <=  floatval($wizpay_merchant_max_amount))
+                (floatval($wizit_merchant_min_amount) <= $price && $price <=  floatval($wizit_merchant_max_amount))
                 ||
                 ( $min_price > 0 && $max_price < 99999
-                    && floatval($wizpay_merchant_min_amount) <= $min_price && $max_price <= floatval($wizpay_merchant_max_amount))
+                    && floatval($wizit_merchant_min_amount) <= $min_price && $max_price <= floatval($wizit_merchant_max_amount))
            )){
 
 
@@ -848,8 +848,8 @@ class Data extends AbstractHelper
 
 
             if($type == 'List' && intval( $show_on_product_cat_page, 0) == 1){
-                return '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_list .'">
-                                    <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /></div>';
+                return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_list .'">
+                                    <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /></div>';
             }
             else if($type == 'Detail' && intval( $show_on_product_page, 0) == 1){
                 if($min_price > 0 && $max_price < 99999){
@@ -857,54 +857,54 @@ class Data extends AbstractHelper
                     $sub_amount1 = '$' . number_format($min_price / 4, 2, '.', ',');
                     $sub_amount2 = '$' . number_format($max_price / 4, 2, '.', ',');
                     // display icon only
-                    return $tValue .  '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_detail .'">
-                        <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <input type="hidden" id="wizpay-sub-amount-price-productid" name="wizpay-sub-amount-price-productid" value="' . $product_id . '">
-                        <span style="'. $this->wizpay_info_content_style .'">&nbsp;or 4 payments of <span id="wizpay-sub-amount-price">from '. $sub_amount1 . ' to ' . $sub_amount2 .
-                        '</span> with Wizpay <a href="#" class="wizpay-learn-more-popup-link">learn more</a><span></div>';
+                    return $tValue .  '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
+                        <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of <span id="wizit-sub-amount-price">from '. $sub_amount1 . ' to ' . $sub_amount2 .
+                        '</span> with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }else{
                     // display full info
-                    return $tValue .  '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_detail .'">
-                        <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <input type="hidden" id="wizpay-sub-amount-price-productid" name="wizpay-sub-amount-price-productid" value="' . $product_id . '">
-                        <span style="'. $this->wizpay_info_content_style .'">&nbsp;or 4 payments of <span id="wizpay-sub-amount-price">'. $sub_amount . 
-                        '</span> with Wizpay <a href="#" class="wizpay-learn-more-popup-link">learn more</a><span></div>';
+                    return $tValue .  '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
+                        <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of <span id="wizit-sub-amount-price">'. $sub_amount . 
+                        '</span> with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }
                 
             }
             else if($type == 'Cart' && intval( $show_on_cat_page, 0) == 1){
-                return '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_detail .'">
-                        <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizpay_info_content_style .'">&nbsp;or 4 payments of <span id="wizpay-sub-amount-price">'. $sub_amount . 
-                        '</span> with Wizpay. 
-                        <a href="#" class="wizpay-learn-more-popup-link">learn more</a><span></div>';
+                return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of <span id="wizit-sub-amount-price">'. $sub_amount . 
+                        '</span> with Wizit. 
+                        <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
             }            
         }
-        else if(intval($wizpay_is_enable, 0) == 1 ){
+        else if(intval($wizit_is_enable, 0) == 1 ){
             // out of range
             if($type == 'Detail' && intval( $show_on_product_page, 0) == 1){
                 if($min_price > 0 && $max_price < 99999){
                     // display icon only
-                    return '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_list .'">
-                                    <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /></div>';
+                    return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_list .'">
+                                    <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /></div>';
                 }else{
                     // display full info
-                    return '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_detail .'">
-                        <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizpay_info_content_style .'">&nbsp;is available on purchases between '
-                        . '$' . number_format(floatval($wizpay_merchant_min_amount), 2, '.', ',') .' and ' 
-                        . '$' . number_format(floatval($wizpay_merchant_max_amount), 2, '.', ',') . 
-                        ' <a href="#" class="wizpay-learn-more-popup-link">learn more</a><span></div>';
+                    return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;is available on purchases between '
+                        . '$' . number_format(floatval($wizit_merchant_min_amount), 2, '.', ',') .' and ' 
+                        . '$' . number_format(floatval($wizit_merchant_max_amount), 2, '.', ',') . 
+                        ' <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }
                 
             }
             else if($type == 'Cart' && intval( $show_on_cat_page, 0) == 1){
-                return '<div style="'. $this->wizpay_info_style_oneline . $this->wizpay_info_style_product_detail .'">
-                        <img style="'. $this->wizpay_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizpay_info_content_style .'">&nbsp;is available on purchases between '
-                        . '$' . number_format(floatval($wizpay_merchant_min_amount), 2, '.', ',') .' and ' 
-                        . '$' . number_format(floatval($wizpay_merchant_max_amount), 2, '.', ',') . 
-                        '<a href="#" class="wizpay-learn-more-popup-link">learn more</a><span></div>';
+                return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
+                        <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;is available on purchases between '
+                        . '$' . number_format(floatval($wizit_merchant_min_amount), 2, '.', ',') .' and ' 
+                        . '$' . number_format(floatval($wizit_merchant_max_amount), 2, '.', ',') . 
+                        '<a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
             } 
         }
 

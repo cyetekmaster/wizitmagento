@@ -1,10 +1,10 @@
 <?php
 
-namespace Wizpay\Wizpay\Model;
+namespace Wizit\Wizit\Model;
 
 class PaymentMethodModel extends \Magento\Payment\Model\Method\AbstractMethod
 {
-    const CODE = 'wizpay';
+    const CODE = 'wizit';
     public $_code = self::CODE;
     public $_isGateway = true;
     public $_canRefund = true;

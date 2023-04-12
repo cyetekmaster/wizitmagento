@@ -9,18 +9,18 @@
     <type name="Magento\Payment\Model\CcGenericConfigProvider">
         <arguments>
             <argument name="methodCodes" xsi:type="array">
-                <item name="wizpay" xsi:type="const">Wizpay\Wizpay\Model\PaymentMethodModel::CODE</item>
+                <item name="wizit" xsi:type="const">Wizit\Wizit\Model\PaymentMethodModel::CODE</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="wizpay_config_provider" xsi:type="object">Wizpay\Wizpay\Model\Ui\ConfigProvider</item>
+                <item name="wizit_config_provider" xsi:type="object">Wizit\Wizit\Model\Ui\ConfigProvider</item>
             </argument>
         </arguments>
     </type>
-    <type name="Wizpay\Wizpay\Block\Info">
+    <type name="Wizit\Wizit\Block\Info">
         <arguments>
             <argument name="data" xsi:type="array">
                 <item xsi:type="string" name="is_secure_mode">1</item>
@@ -30,20 +30,20 @@
 
 
     <type name="Magento\Catalog\Block\Product\AbstractProduct">
-        <plugin name="Wizpay_Product_HomeView" type="Wizpay\Wizpay\Block\Catalog\Block\Product\WzAbstractProduct"  disabled="false"/>
+        <plugin name="Wizit_Product_HomeView" type="Wizit\Wizit\Block\Catalog\Block\Product\WzAbstractProduct"  disabled="false"/>
     </type>
 
     <type name="Magento\Catalog\Block\Product\ListProduct">
-        <plugin name="Wizpay_Product_ListView" type="Wizpay\Wizpay\Block\Catalog\Block\Product\WzListProduct"  disabled="false"/>
+        <plugin name="Wizit_Product_ListView" type="Wizit\Wizit\Block\Catalog\Block\Product\WzListProduct"  disabled="false"/>
     </type>
 
 
      <type name="Magento\Catalog\Block\Product\View">
-        <plugin name="Wizpay_Product_View" type="Wizpay\Wizpay\Block\Catalog\Block\Product\WzView" disabled="false"/>
+        <plugin name="Wizit_Product_View" type="Wizit\Wizit\Block\Catalog\Block\Product\WzView" disabled="false"/>
     </type>
 
      <type name="Magento\Checkout\Block\Cart">
-        <plugin name="Wizpay_Cart_View" type="Wizpay\Wizpay\Block\Checkout\Block\WzCart" disabled="false"/>
+        <plugin name="Wizit_Cart_View" type="Wizit\Wizit\Block\Checkout\Block\WzCart" disabled="false"/>
     </type>
 
 </config>

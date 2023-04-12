@@ -3,11 +3,11 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Model\Ui;
+namespace Wizit\Wizit\Model\Ui;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
-use Wizpay\Wizpay\Gateway\Http\Client\ClientMock;
-use \Wizpay\Wizpay\Helper\Data;
+use Wizit\Wizit\Gateway\Http\Client\ClientMock;
+use \Wizit\Wizit\Helper\Data;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Checkout\Model\Session;
 use Magento\Backend\Model\Session\Quote as adminQuoteSession;
@@ -19,7 +19,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
  */
 class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
 {
-    const CODE = 'wizpay';
+    const CODE = 'wizit';
 
     /**
      * Get country path
@@ -76,9 +76,9 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
         //$getSubtotal1 = number_format($getSubtotal, 2, '.', '');
 
         $getStoreCurrency = $this->helper->getStoreCurrency();
-        $banktransferLogoUrl = $this->assetRepository->getUrlWithParams('Wizpay_Wizpay::images/Group.png', []);
+        $banktransferLogoUrl = $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
-        $wizpayTitle = $this->helper->getConfig('payment/wizpay/title');
+        $wizitTitle = $this->helper->getConfig('payment/wizit/title');
 
         $default_country = $this->scopeConfig->getValue(
             self::COUNTRY_CODE_PATH,
@@ -97,13 +97,13 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
 
         return [
             'payment' => [
-                'wizpay' => [
-                    'wizpayLogoUrl' => $banktransferLogoUrl,
+                'wizit' => [
+                    'wizitLogoUrl' => $banktransferLogoUrl,
                     'urls' => $banktransferLogoUrl,
                     'subtotalamount' => $formatted_totalamount,
                     //'getSubtotal1' => $getSubtotal1,
                     'getStoreCurrency' => $getStoreCurrency,
-                    'wizpayTitle' => $wizpayTitle,
+                    'wizitTitle' => $wizitTitle,
                     'default_country' => $default_country
                 ]
             ]

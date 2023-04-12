@@ -3,12 +3,12 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\Wizpay\Test\Unit\Gateway\Validator;
+namespace Wizit\Wizit\Test\Unit\Gateway\Validator;
 
 use Magento\Payment\Gateway\Validator\ResultInterface;
 use Magento\Payment\Gateway\Validator\ResultInterfaceFactory;
-use Wizpay\Wizpay\Gateway\Http\Client\ClientMock;
-use Wizpay\Wizpay\Gateway\Validator\ResponseCodeValidator;
+use Wizit\Wizit\Gateway\Http\Client\ClientMock;
+use Wizit\Wizit\Gateway\Validator\ResponseCodeValidator;
 
 class ResponseCodeValidatorTest extends \PHPUnit_Framework_TestCase
 {

@@ -3,11 +3,11 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wizpay\WizpayProvider\Test\Unit\Gateway\Http\Client;
+namespace Wizit\WizitProvider\Test\Unit\Gateway\Http\Client;
 
 use Magento\Payment\Gateway\Http\TransferInterface;
 use Magento\Payment\Model\Method\Logger;
-use Wizpay\Wizpay\Gateway\Http\Client\ClientMock;
+use Wizit\Wizit\Gateway\Http\Client\ClientMock;
 
 class ClientMockTest extends \PHPUnit_Framework_TestCase
 {

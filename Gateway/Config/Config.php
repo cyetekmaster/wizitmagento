@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Wizpay\Wizpay\Gateway\Config;
+namespace Wizit\Wizit\Gateway\Config;
 
 class Config extends \Magento\Payment\Gateway\Config\Config
 {
-    const CODE = 'wizpay';
+    const CODE = 'wizit';
 
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig

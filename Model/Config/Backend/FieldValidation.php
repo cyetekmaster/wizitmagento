@@ -1,7 +1,7 @@
 <?php
-namespace Wizpay\Wizpay\Model\Config\Backend;
+namespace Wizit\Wizit\Model\Config\Backend;
 
-use \Wizpay\Wizpay\Helper\Data;
+use \Wizit\Wizit\Helper\Data;
 use Magento\Framework\App\RequestInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -80,14 +80,14 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
     {
         $error = false;
         //$label = $this->getData('field_config/label');
-        //$get_api_key = $this->helper->getConfig('payment/wizpay/api_key');
+        //$get_api_key = $this->helper->getConfig('payment/wizit/api_key');
         $postData = $this->request->getPost();
         $allpostdata = (array) $postData;
 
         $is_plugin_enable = true;
-        if(array_key_exists('value', $allpostdata['groups']['wizpay']['fields']['active'])){
-            // check if turn off wizpay then do nothing 
-            $is_plugin_enable = intval($allpostdata['groups']['wizpay']['fields']['active']['value']) == 1 ? true : false;
+        if(array_key_exists('value', $allpostdata['groups']['wizit']['fields']['active'])){
+            // check if turn off wizit then do nothing 
+            $is_plugin_enable = intval($allpostdata['groups']['wizit']['fields']['active']['value']) == 1 ? true : false;
         }
         
         if($is_plugin_enable == false){
@@ -105,7 +105,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
                 $error_messages = $pre_messages->getErrors();
                 if(isset($error_messages) && !is_null($error_messages)){
                     foreach ($error_messages as $err_m) {
-                        if($err_m->getText() == 'Error: Wizpay is only available in Australia.'){
+                        if($err_m->getText() == 'Error: Wizit is only available in Australia.'){
                             $has_outzone_error_message = true;
                             break;
                         }
@@ -115,13 +115,13 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
             }
 
             if(!$has_outzone_error_message){
-                $this->messageManager->addErrorMessage(__("Error: Wizpay is only available in Australia."));
+                $this->messageManager->addErrorMessage(__("Error: Wizit is only available in Australia."));
             }
 
 
-            // turn off wizpay
+            // turn off wizit
             $this->resourceConfig->saveConfig(
-                'payment/wizpay/active',
+                'payment/wizit/active',
                 0,
                 \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                 0
@@ -129,9 +129,9 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         }
 
 
-        // keep working if wizpay turn on.
+        // keep working if wizit turn on.
         // print_r($allpostdata);
-        $getallpostdata = $allpostdata['groups']['wizpay']['groups']['min_max_wizpay']['fields'];
+        $getallpostdata = $allpostdata['groups']['wizit']['groups']['min_max_wizit']['fields'];
 
         $mmin = 0;
         $mmax = 0;
@@ -145,14 +145,14 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
 
         
 
-        $environment = intval($allpostdata['groups']['wizpay']['fields']['environment']['value']);
+        $environment = intval($allpostdata['groups']['wizit']['fields']['environment']['value']);
         $get_api_key = '';
         
         if($environment == 1){
             // set api key to sandbox key
-            $get_api_key = $allpostdata['groups']['wizpay']['fields']['api_key_sandbox']['value'];
+            $get_api_key = $allpostdata['groups']['wizit']['fields']['api_key_sandbox']['value'];
         }else{
-            $get_api_key = $allpostdata['groups']['wizpay']['fields']['api_key']['value'];
+            $get_api_key = $allpostdata['groups']['wizit']['fields']['api_key']['value'];
         }
 
         $wzresponse = $this->helper->callLimitapi($get_api_key, $environment);
@@ -171,12 +171,12 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
                 
                 if ($mmin < $wmin) {
                     $error = true;
-                    throw new \Magento\Framework\Exception\ValidatorException(__('Error: Merchant Minimum Payment Amount can not be less than Wizpay Minimum Payment Amount.')); // phpcs:ignore
+                    throw new \Magento\Framework\Exception\ValidatorException(__('Error: Merchant Minimum Payment Amount can not be less than Wizit Minimum Payment Amount.')); // phpcs:ignore
                 }
                 
                 if ($mmax > $wmax) {
                     $error = true;
-                    throw new \Magento\Framework\Exception\ValidatorException(__('Error: Merchant Maximum Payment Amount can not be more than Wizpay Maximum Payment Amount.')); // phpcs:ignore
+                    throw new \Magento\Framework\Exception\ValidatorException(__('Error: Merchant Maximum Payment Amount can not be more than Wizit Maximum Payment Amount.')); // phpcs:ignore
                 }
                 
                 if ($mmax < $mmin) {
@@ -194,8 +194,8 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
                 return false;
             }
 
-            //payment/wizpay/min_max_wizpay/merchant_min_amount
-            // /payment/wizpay/min_max_wizpay/merchant_max_amount
+            //payment/wizit/min_max_wizit/merchant_min_amount
+            // /payment/wizit/min_max_wizit/merchant_max_amount
 
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $productMetadata = $objectManager->get('\Magento\Framework\App\ProductMetadataInterface');
@@ -204,35 +204,35 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
             if (version_compare($getMagentoVer, '2.1.0', '<')) {
 
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/wz_min_amount',
+                    'payment/wizit/min_max_wizit/wz_min_amount',
                     $wmin,
                     'default',
                     0
                 );
 
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/wz_max_amount',
+                    'payment/wizit/min_max_wizit/wz_max_amount',
                     $wmax,
                     'default',
                     0
                 );
 
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/merchant_max_amount',
+                    'payment/wizit/min_max_wizit/merchant_max_amount',
                     $mmin,
                     'default',
                     0
                 );
 
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/merchant_min_amount',
+                    'payment/wizit/min_max_wizit/merchant_min_amount',
                     $mmax,
                     'default',
                     0
                 );
                 
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/merchant_min_amounts',
+                    'payment/wizit/min_max_wizit/merchant_min_amounts',
                     $mmin,
                     'default',
                     0
@@ -241,31 +241,31 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
             } else {
 
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/wz_min_amount',
+                    'payment/wizit/min_max_wizit/wz_min_amount',
                     $wmin,
                     \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                     0
                 );
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/wz_max_amount',
+                    'payment/wizit/min_max_wizit/wz_max_amount',
                     $wmax,
                     \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                     0
                 );
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/merchant_max_amount',
+                    'payment/wizit/min_max_wizit/merchant_max_amount',
                     $mmax,
                     \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                     0
                 );
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/merchant_min_amount',
+                    'payment/wizit/min_max_wizit/merchant_min_amount',
                     $mmin,
                     \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                     0
                 );
                 $this->resourceConfig->saveConfig(
-                    'payment/wizpay/min_max_wizpay/merchant_min_amounts',
+                    'payment/wizit/min_max_wizit/merchant_min_amounts',
                     $mmin,
                     \Magento\Framework\App\ScopeInterface::SCOPE_DEFAULT,
                     0
@@ -274,16 +274,16 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         }
 
         $isEnableProduct = true;
-        if(array_key_exists('value', $allpostdata['groups']['wizpay']['groups']['website_customisation']['fields']['payment_info_on_product_pages'])){
-            $isEnableProduct = intval($allpostdata['groups']['wizpay']['groups']['website_customisation']['fields']['payment_info_on_product_pages']['value']) == 1 ? true : false;
+        if(array_key_exists('value', $allpostdata['groups']['wizit']['groups']['website_customisation']['fields']['payment_info_on_product_pages'])){
+            $isEnableProduct = intval($allpostdata['groups']['wizit']['groups']['website_customisation']['fields']['payment_info_on_product_pages']['value']) == 1 ? true : false;
         }
         $isEnableCategory = false;
-        if(array_key_exists('value', $allpostdata['groups']['wizpay']['groups']['website_customisation']['fields']['payment_info_on_catetory_pages'])){
-            $isEnableCategory = intval($allpostdata['groups']['wizpay']['groups']['website_customisation']['fields']['payment_info_on_catetory_pages']['value']) == 1 ? true : false;
+        if(array_key_exists('value', $allpostdata['groups']['wizit']['groups']['website_customisation']['fields']['payment_info_on_catetory_pages'])){
+            $isEnableCategory = intval($allpostdata['groups']['wizit']['groups']['website_customisation']['fields']['payment_info_on_catetory_pages']['value']) == 1 ? true : false;
         }
         $isEnableCart = false;
-        if(array_key_exists('value', $allpostdata['groups']['wizpay']['groups']['website_customisation']['fields']['payment_info_on_cart_pages'])){
-            $isEnableCart = intval($allpostdata['groups']['wizpay']['groups']['website_customisation']['fields']['payment_info_on_cart_pages']['value']) == 1 ? true : false;
+        if(array_key_exists('value', $allpostdata['groups']['wizit']['groups']['website_customisation']['fields']['payment_info_on_cart_pages'])){
+            $isEnableCart = intval($allpostdata['groups']['wizit']['groups']['website_customisation']['fields']['payment_info_on_cart_pages']['value']) == 1 ? true : false;
         }
 
         // build data
