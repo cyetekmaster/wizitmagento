@@ -76,7 +76,7 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
         //$getSubtotal1 = number_format($getSubtotal, 2, '.', '');
 
         $getStoreCurrency = $this->helper->getStoreCurrency();
-        $banktransferLogoUrl = $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
+        $banktransferLogoUrl = 'https://www.wizit.money/img/plugin/wizit.png';// $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
         $popupImageUrl = $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/wizit_popup.png', []);
 
         $wizitTitle = $this->helper->getConfig('payment/wizit/title');

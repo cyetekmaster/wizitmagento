@@ -16,12 +16,15 @@
         width: 50%;
         }
         }
+        .wizit-payment-logo{
+         max-width: 50px;
+        }
      </style>
     <div class="payment-method-title field choice">
         <input type="radio" name="payment[method]" class="radio"
           data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()" />
        <label data-bind="attr: {'for': getCode()}" class="label" for="Wizit">
-            <img data-bind="attr: {src: getLogoUrl()}" class="payment-icon" alt="Wizit" />
+            <img data-bind="attr: {src: getLogoUrl()}" class="payment-icon wizit-payment-logo" alt="Wizit" />
             &nbsp;&nbsp;<span style="line-height: 25px;" data-bind="text: getTitle()"></span>
        </label>
     </div>

@@ -807,7 +807,7 @@ class Data extends AbstractHelper
 
 
     public function getWizitMessage($type, $price, $assetRepository, $min_price = 0, $max_price = 99999, $product_id = 0){
-        $banktransferLogoUrl = $assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
+        $banktransferLogoUrl = 'https://www.wizit.money/img/plugin/wizit.png';// $assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
                
         // get plugin setting
