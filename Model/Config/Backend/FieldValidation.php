@@ -60,7 +60,6 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         RequestInterface $request,
         Data $helper,
-        array $data,
         \Magento\Framework\Message\ManagerInterface $messageManager
     ) {
         $this->_configValueFactory = $configValueFactory;
@@ -73,7 +72,7 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
 
         $this->scopeConfig = $config;
         $this->messageManager = $messageManager;
-        parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data);  
+        parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, []);  
     }
 
     public function beforeSave()
