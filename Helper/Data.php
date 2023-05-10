@@ -24,7 +24,7 @@ class Data extends AbstractHelper
      * 
      */
     private  $base_url = 'https://api.wizit.money/';
-    private  $test_url = 'https://dev2api.wizit.money/';
+    private  $test_url = 'https://stagingapi.wizit.money/';
     private  $version = 'v1/';
     private  $intermediate = 'api/';
     private  $apicall = '';
