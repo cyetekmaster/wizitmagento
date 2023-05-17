@@ -4,7 +4,7 @@ namespace Wizit\Wizit\Observer;
 
 class SetQuoteIsPaidByWizit implements \Magento\Framework\Event\ObserverInterface
 {
-    private \Wizit\Wizit\Model\Order\Payment\QuotePaidStorage $quotePaidStorage;
+    private $quotePaidStorage;
 
     public function __construct(
         \Wizit\Wizit\Model\Order\Payment\QuotePaidStorage $quotePaidStorage

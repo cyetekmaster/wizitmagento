@@ -6,7 +6,7 @@ use Magento\Sales\Model\Order\Payment;
 
 class QuotePaidStorage
 {
-    private array $quotesOrderPayments = [];
+    private $quotesOrderPayments = [];
 
     public function setWizitPaymentForQuote(int $quoteId, Payment $wizitPayment): self
     {
