@@ -10,7 +10,6 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Locale\ResolverInterface;
 use Magento\Payment\Helper\Data as PaymentData;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Framework\Mail\TransportInterfaceFactory;
 
 
@@ -82,7 +81,6 @@ class Data extends AbstractHelper
         PaymentData $paymentData,
         StoreManagerInterface $storeManager,
         ResolverInterface $localeResolver,
-        TransportBuilder $transportBuilder,
         TransportInterfaceFactory $mailTransportFactory,
         \Magento\Framework\HTTP\Client\Curl $curl,
         \Psr\Log\LoggerInterface $logger
@@ -93,7 +91,6 @@ class Data extends AbstractHelper
         $this->_storeManager  = $storeManager;
         $this->_localeResolver = $localeResolver;
         $this->curlClient = $curl;
-        $this->transportBuilder = $transportBuilder;
         $this->mailTransportFactory = $mailTransportFactory;
         $this->_scopeConfig   = $context->getScopeConfig();
 
@@ -167,10 +164,7 @@ class Data extends AbstractHelper
         return $this->_transaction;
     }
 
-    public function transportBuilder()
-    {
-        return $this->transportBuilder;
-    }
+ 
 
     public function mailTransportFactory()
     {
