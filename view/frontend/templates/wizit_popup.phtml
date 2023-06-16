@@ -38,8 +38,8 @@
 
 
 
-<div id="wizit-modal-content">
-    <div class="modal-body-content wizit-popup-body-content">
+<div id="wizit-modal-content" style="display:none;">
+    <div class="modal-body-content wizit-popup-body-content" style="display:none;">
         <a href="https://info.wizit.money/HowItWorks/HowItWorks.html" target="_blank">
             <img id="wizit-popup-image" src="<?php echo $block->getPopupImageUrl(); ?>" title="Terms and Conditions" />
         </a>
@@ -76,6 +76,8 @@
             // document.getElementById('wizit-popup-image').setAttribute("src",window.checkoutConfig.payment.wizit.popupImage);
             // load modal
             $('#wizit-modal-content').modal('openModal');
+            $('#wizit-modal-content').show();
+            $('#wizit-modal-content .wizit-popup-body-content').show();
         });
 
 
