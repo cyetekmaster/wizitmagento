@@ -10,7 +10,7 @@
 
 
 <div id="wizit-modal-content">
-    <div class="modal-body-content wizit-popup-body-content">
+    <div class="modal-body-content wizit-popup-body-content" style="display:none;">
         <iframe id="wizit-popup-iframe" title="">
         </iframe>
     </div>    
@@ -45,6 +45,7 @@
             document.getElementById('wizit-popup-iframe').setAttribute("src","https://info.wizit.money/HowItWorks/HowItWorks.html");
             // load modal
             $('#wizit-modal-content').modal('openModal');
+            $('#wizit-modal-content .wizit-popup-body-content').show();
         });
 
         // Options for the observer (which mutations to observe)

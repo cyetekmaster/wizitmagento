@@ -233,7 +233,7 @@ class PlaceOrderProcessor
                 "currency"=> $getStoreCurrency
             ],
             "OtherCharges"=> [
-                "amount"=> number_format($other_special_item_total, 2),
+                "amount"=> number_format($other_special_item_total < 0 ? 0 : $other_special_item_total, 2),
                 "currency"=> $getStoreCurrency
             ],
             "consumer"=> [
