@@ -11,7 +11,7 @@ namespace Wizit\Wizit\Controller\Index;
 
 
 
-use Magento\Sales\Model\Order;
+use \Magento\Sales\Model\Order;
 use \Wizit\Wizit\Helper\Data;
 use \Wizit\Wizit\Helper\Checkout;
 use \Magento\Checkout\Model\Session;
@@ -34,7 +34,7 @@ class WebhookComfirmUrl extends Success
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Model\Service\InvoiceService $invoiceService,
         \Magento\Framework\DB\Transaction $transaction,
-        StockRegistryInterface $stockRegistry,
+        \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
         //\Magento\Paypal\Model\Adminhtml\ExpressFactory $authorisationFactory,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Wizit\Wizit\Helper\Data $helper,

@@ -3,12 +3,12 @@
 namespace Wizit\Wizit\Observer;
 
 use \Wizit\Wizit\Helper\Data;
-use Magento\Framework\Event\Observer as EventObserver;
-use Magento\Framework\Event\ObserverInterface;
+use \Magento\Framework\Event\Observer as EventObserver;
+use \Magento\Framework\Event\ObserverInterface;
 use \Magento\Framework\App\Config\ScopeConfigInterface as scopeConfig;
-use Magento\Checkout\Model\Session;
-use Magento\Backend\Model\Session\Quote as adminQuoteSession;
-use Magento\Store\Model\ScopeInterface;
+use \Magento\Checkout\Model\Session;
+use \Magento\Backend\Model\Session\Quote as adminQuoteSession;
+use \Magento\Store\Model\ScopeInterface;
 
 class DataAssignObserver implements ObserverInterface
 {
@@ -16,6 +16,8 @@ class DataAssignObserver implements ObserverInterface
     protected $_session;
     protected $_quote;
     private $storeManager;
+    private $scopeConfig;
+    private $helper;
     /**
      * Get country path
      */
@@ -23,11 +25,11 @@ class DataAssignObserver implements ObserverInterface
 
     public function __construct(
         \Magento\Framework\App\State $state,
-        Session $checkoutSession,
+        \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        Data $helper,
-        scopeConfig $scopeConfig,
-        adminQuoteSession $adminQuoteSession
+        \Wizit\Wizit\Helper\Data $helper,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Backend\Model\Session\Quote $adminQuoteSession
     ) {
         $this->storeManager = $storeManager;
         $this->_state = $state;

@@ -48,6 +48,13 @@ class Index extends Action
     public $resultPageFactory;
 
     public $helper;
+
+    private $invoiceSender;
+    private $_checkoutSession;
+    private $_orderFactory;
+    private $_transaction;
+    private $_invoiceService;
+
     /**
      * Index constructor.
      * @param PageFactory $resultRedirectFactory
@@ -63,7 +70,7 @@ class Index extends Action
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Model\Service\InvoiceService $invoiceService,
         \Magento\Framework\DB\Transaction $transaction,
-        StockRegistryInterface $stockRegistry,
+        \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
         //\Magento\Paypal\Model\Adminhtml\ExpressFactory $authorisationFactory,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Wizit\Wizit\Helper\Data $helper,

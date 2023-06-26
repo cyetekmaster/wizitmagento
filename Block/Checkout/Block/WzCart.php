@@ -3,7 +3,7 @@
 namespace Wizit\Wizit\Block\Checkout\Block;
  
 use \Wizit\Wizit\Helper\Data;
-use Magento\Framework\View\Asset\Repository;
+use \Magento\Framework\View\Asset\Repository;
 
 class WzCart
 {
@@ -12,8 +12,8 @@ class WzCart
 
 
     public function __construct(
-         Data $helper,
-         Repository $assetRepository
+        \Wizit\Wizit\Helper\Data $helper,
+        \Magento\Framework\View\Asset\Repository $assetRepository
     ){
         $this->wizit_helper = $helper;
         $this->assetRepository = $assetRepository;

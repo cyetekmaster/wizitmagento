@@ -12,12 +12,11 @@ class Popup extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\View\Asset\Repository $assetRepos,
-        \Magento\Catalog\Helper\ImageFactory $helperImageFactory,
-        array $data = []
+        \Magento\Catalog\Helper\ImageFactory $helperImageFactory
     ) {
         $this->assetRepos = $assetRepos;
         $this->helperImageFactory = $helperImageFactory;
-        parent::__construct($context, $data);
+        parent::__construct($context, []);
     }
 
 
