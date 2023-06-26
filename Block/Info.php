@@ -5,9 +5,9 @@
  */
 namespace Wizit\Wizit\Block;
 
-use Magento\Framework\Phrase;
-use Magento\Payment\Block\ConfigurableInfo;
-use Wizit\Wizit\Gateway\Response\FraudHandler;
+use \Magento\Framework\Phrase;
+use \Magento\Payment\Block\ConfigurableInfo;
+use \Wizit\Wizit\Gateway\Response\FraudHandler;
 
 class Info extends ConfigurableInfo
 {

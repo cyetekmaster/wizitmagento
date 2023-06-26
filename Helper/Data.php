@@ -8,7 +8,7 @@ use \Magento\Store\Model\StoreManagerInterface;
 use \Magento\Framework\ObjectManagerInterface;
 use \Magento\Framework\App\Helper\Context;
 use \Magento\Framework\Locale\ResolverInterface;
-use \Magento\Payment\Helper\Data;
+use \Magento\Payment\Helper\Data as magentoPaymentHelper;
 use \Magento\Framework\Exception\NoSuchEntityException;
 
 
@@ -76,7 +76,7 @@ class Data extends AbstractHelper
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
         \Magento\Framework\App\Helper\Context $context,
-        \Magento\Payment\Helper\Data $paymentData,
+        magentoPaymentHelper $paymentData,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Locale\ResolverInterface $localeResolver,
         \Magento\Framework\HTTP\Client\Curl $curl,
