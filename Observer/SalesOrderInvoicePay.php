@@ -2,8 +2,8 @@
 
 namespace Wizit\Wizit\Observer;
 
-use Magento\Framework\Event\Observer as EventObserver;
-use Magento\Framework\Event\ObserverInterface;
+use \Magento\Framework\Event\Observer as EventObserver;
+use \Magento\Framework\Event\ObserverInterface;
 use \Wizit\Wizit\Helper\Data;
 
 class SalesOrderInvoicePay implements ObserverInterface
@@ -18,9 +18,10 @@ class SalesOrderInvoicePay implements ObserverInterface
     protected $messageManager;
     protected $resultRedirectFactory;
     protected $_request;
+    private $helper;
 
     public function __construct(
-        Data $helper,
+        \Wizit\Wizit\Helper\Data $helper,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\Controller\Result\RedirectFactory $resultRedirectFactory,
         \Magento\Framework\App\RequestInterface $request

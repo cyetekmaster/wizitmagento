@@ -1,8 +1,8 @@
 <?php
 namespace Wizit\Wizit\Observer;
 
-use Magento\Framework\Event\Observer;
-use Magento\Framework\Event\ObserverInterface;
+use \Magento\Framework\Event\Observer;
+use \Magento\Framework\Event\ObserverInterface;
 use \Wizit\Wizit\Helper\Data;
 
 class SalesOrderItemCancel implements ObserverInterface
@@ -16,9 +16,10 @@ class SalesOrderItemCancel implements ObserverInterface
 
     protected $messageManager;
     protected $resultRedirectFactory;
+    private $helper;
 
     public function __construct(
-        Data $helper,
+        \Wizit\Wizit\Helper\Data $helper,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Magento\Framework\Controller\Result\RedirectFactory $resultRedirectFactory
     ) {

@@ -2,9 +2,9 @@
 namespace Wizit\Wizit\Model\Config\Backend;
 
 use \Wizit\Wizit\Helper\Data;
-use Magento\Framework\App\RequestInterface;
-use Magento\Store\Model\ScopeInterface;
-use Magento\Framework\App\Config\ScopeConfigInterface;
+use \Magento\Framework\App\RequestInterface;
+use \Magento\Store\Model\ScopeInterface;
+use \Magento\Framework\App\Config\ScopeConfigInterface;
 
 class FieldValidation extends \Magento\Framework\App\Config\Value
 {
@@ -33,6 +33,10 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
      * @var \Magento\Config\Model\ResourceModel\Config
      */
     protected $resourceConfig;
+
+    private $helper;
+    private $dir;
+    private $_configInterface;
     /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
@@ -60,8 +64,8 @@ class FieldValidation extends \Magento\Framework\App\Config\Value
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        RequestInterface $request,
-        Data $helper
+        \Magento\Framework\App\RequestInterface $request,
+        \Wizit\Wizit\Helper\Data $helper
     ) {
         $this->_configValueFactory = $configValueFactory;
         $this->helper = $helper;

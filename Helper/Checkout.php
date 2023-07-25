@@ -6,8 +6,8 @@
 
 namespace Wizit\Wizit\Helper;
 
-use Magento\Sales\Model\Order;
-use Magento\Checkout\Model\Session;
+use \Magento\Sales\Model\Order;
+use \Magento\Checkout\Model\Session;
 
 /**
  * Checkout workflow helper
@@ -26,7 +26,7 @@ class Checkout
      * @param \Magento\Checkout\Model\Session $session
      */
     public function __construct(
-        Session $session
+        \Magento\Checkout\Model\Session $session
     ) {
         $this->session = $session;
     }

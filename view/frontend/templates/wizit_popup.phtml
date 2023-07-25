@@ -5,14 +5,40 @@
     min-height: 920px;
 }
 
+.wizit-custom-modal .modal-inner-wrap{
+    background: transparent !important;
+    box-shadow: none  !important;
+    width: 100% !important;
+    max-width: 600px;
+}
+
+.wizit-custom-modal .modal-inner-wrap .modal-header{
+
+}
+
+
+.wizit-custom-modal .modal-inner-wrap .modal-header .action-close{
+    top: 4rem !important;
+    right: 3rem !important;
+}
+
+.wizit-custom-modal .modal-inner-wrap .modal-header .action-close:before{
+    color: white !important;
+}
+
+.wizit-custom-modal .modal-inner-wrap .modal-footer{
+    display: none;
+}
+
 </style>
 
 
 
-<div id="wizit-modal-content">
+<div id="wizit-modal-content" style="display:none;">
     <div class="modal-body-content wizit-popup-body-content" style="display:none;">
-        <iframe id="wizit-popup-iframe" title="">
-        </iframe>
+        <a href="https://info.wizit.money/HowItWorks/HowItWorks.html" target="_blank">
+            <img id="wizit-popup-image" src="https://www.wizit.money/img/plugin/wizit_popup.png" title="Terms and Conditions" />
+        </a>
     </div>    
 </div>
 
@@ -26,6 +52,7 @@
         var options = {
             type: 'popup',
             responsive: true,
+            modalClass: 'wizit-custom-modal',
             title: '',
             buttons: [{
                 text: $.mage.__('Close'),
@@ -42,9 +69,10 @@
         var popup = modal(options, $('#wizit-modal-content'));
         $(".wizit-learn-more-popup-link").click(function() {
             // set iframe url
-            document.getElementById('wizit-popup-iframe').setAttribute("src","https://info.wizit.money/HowItWorks/HowItWorks.html");
+            // document.getElementById('wizit-popup-image').setAttribute("src",window.checkoutConfig.payment.wizit.popupImage);
             // load modal
             $('#wizit-modal-content').modal('openModal');
+            $('#wizit-modal-content').show();
             $('#wizit-modal-content .wizit-popup-body-content').show();
         });
 

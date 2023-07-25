@@ -1,12 +1,12 @@
 <?php
 namespace Wizit\Wizit\Observer;
 
-use Magento\Framework\Event\Observer;
-use Magento\Payment\Observer\AbstractDataAssignObserver;
-use Magento\Framework\ObjectManager\ObjectManager;
-use Magento\Sales\Model\Order;
-use Magento\CatalogInventory\Api\StockRegistryInterface;
-use Magento\Catalog\Model\ProductRepository;
+use \Magento\Framework\Event\Observer;
+use \Magento\Payment\Observer\AbstractDataAssignObserver;
+use \Magento\Framework\ObjectManager\ObjectManager;
+use \Magento\Sales\Model\Order;
+use \Magento\CatalogInventory\Api\StockRegistryInterface;
+use \Magento\Catalog\Model\ProductRepository;
 
 class SalesOrderInvoiceSaveBefore implements \Magento\Framework\Event\ObserverInterface
 {
@@ -25,8 +25,8 @@ class SalesOrderInvoiceSaveBefore implements \Magento\Framework\Event\ObserverIn
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Framework\ObjectManager\ObjectManager $objectManager,
-        ProductRepository $productRepository,
-        StockRegistryInterface $stockRegistry
+        \Magento\Catalog\Model\ProductRepository $productRepository,
+        \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry
     ) {
         $this->_objectManager = $objectManager;
         $this->_orderFactory = $orderFactory;

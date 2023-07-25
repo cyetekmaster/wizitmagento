@@ -1,10 +1,10 @@
 <?php
 namespace Wizit\Wizit\Crons;
 
-use Wizit\Wizit\Helper\Data;
-use Magento\Framework\App\RequestInterface;
-use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Store\Model\ScopeInterface;
+use \Wizit\Wizit\Helper\Data;
+use \Magento\Framework\App\RequestInterface;
+use \Magento\Framework\App\Config\ScopeConfigInterface;
+use \Magento\Store\Model\ScopeInterface;
 
 class ExecuteCronJob
 {
@@ -19,7 +19,10 @@ class ExecuteCronJob
      * @param \Magento\Config\Model\ResourceModel\Config $resourceConfig
      */
 
-    public function __construct(Data $helper, ScopeConfigInterface $scopeConfig, \Magento\Config\Model\ResourceModel\Config $resourceConfig) // phpcs:ignore
+    public function __construct(
+        \Wizit\Wizit\Helper\Data $helper, 
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig, 
+        \Magento\Config\Model\ResourceModel\Config $resourceConfig) // phpcs:ignore
     {
         $this->helper = $helper;
         $this->scopeConfig = $scopeConfig;

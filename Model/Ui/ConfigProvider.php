@@ -5,14 +5,14 @@
  */
 namespace Wizit\Wizit\Model\Ui;
 
-use Magento\Checkout\Model\ConfigProviderInterface;
-use Wizit\Wizit\Gateway\Http\Client\ClientMock;
+use \Magento\Checkout\Model\ConfigProviderInterface;
+use \Wizit\Wizit\Gateway\Http\Client\ClientMock;
 use \Wizit\Wizit\Helper\Data;
-use Magento\Framework\View\Asset\Repository;
-use Magento\Checkout\Model\Session;
-use Magento\Backend\Model\Session\Quote as adminQuoteSession;
-use Magento\Store\Model\ScopeInterface;
-use Magento\Framework\App\Config\ScopeConfigInterface;
+use \Magento\Framework\View\Asset\Repository;
+use \Magento\Checkout\Model\Session;
+use \Magento\Backend\Model\Session\Quote;
+use \Magento\Store\Model\ScopeInterface;
+use \Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
  * Class ConfigProvider
@@ -38,6 +38,13 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
 
     protected $_quote;
 
+    private $orderRepository;
+
+    private $_checkoutSession;
+    private $helper;
+    private $_state;
+    private $scopeConfig;
+
     /**
      * Retrieve assoc array of checkout configuration
      *
@@ -45,11 +52,11 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
      */
 
     public function __construct(
-        Repository $assetRepository,
+        \Magento\Framework\View\Asset\Repository $assetRepository,
         \Magento\Framework\App\State $state,
-        Session $checkoutSession,
-        Data $helper,
-        adminQuoteSession $adminQuoteSession,
+        \Magento\Checkout\Model\Session $checkoutSession,
+        \Wizit\Wizit\Helper\Data $helper,
+        \Magento\Backend\Model\Session\Quote $adminQuoteSession,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Framework\App\Config\ScopeConfigInterface $config
     ) {
@@ -76,7 +83,7 @@ class ConfigProvider implements ConfigProviderInterface // phpcs:ignore
         //$getSubtotal1 = number_format($getSubtotal, 2, '.', '');
 
         $getStoreCurrency = $this->helper->getStoreCurrency();
-        $banktransferLogoUrl = $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
+        $banktransferLogoUrl = = 'https://www.wizit.money/img/plugin/wizit.png';// $this->assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
         $wizitTitle = $this->helper->getConfig('payment/wizit/title');
 

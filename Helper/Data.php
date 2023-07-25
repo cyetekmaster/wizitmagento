@@ -4,13 +4,12 @@ namespace Wizit\Wizit\Helper;
 
 
 use \Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Framework\ObjectManagerInterface;
-use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Locale\ResolverInterface;
-use Magento\Payment\Helper\Data as PaymentData;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Mail\TransportInterfaceFactory;
+use \Magento\Store\Model\StoreManagerInterface;
+use \Magento\Framework\ObjectManagerInterface;
+use \Magento\Framework\App\Helper\Context;
+use \Magento\Framework\Locale\ResolverInterface;
+use \Magento\Payment\Helper\Data as magentoPaymentHelper;
+use \Magento\Framework\Exception\NoSuchEntityException;
 
 
 
@@ -76,12 +75,11 @@ class Data extends AbstractHelper
      * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      */
     public function __construct(
-        ObjectManagerInterface $objectManager,
-        Context $context,
-        PaymentData $paymentData,
-        StoreManagerInterface $storeManager,
-        ResolverInterface $localeResolver,
-        TransportInterfaceFactory $mailTransportFactory,
+        \Magento\Framework\ObjectManagerInterface $objectManager,
+        \Magento\Framework\App\Helper\Context $context,
+        magentoPaymentHelper $paymentData,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Locale\ResolverInterface $localeResolver,
         \Magento\Framework\HTTP\Client\Curl $curl,
         \Psr\Log\LoggerInterface $logger
     ) {
@@ -91,7 +89,6 @@ class Data extends AbstractHelper
         $this->_storeManager  = $storeManager;
         $this->_localeResolver = $localeResolver;
         $this->curlClient = $curl;
-        $this->mailTransportFactory = $mailTransportFactory;
         $this->_scopeConfig   = $context->getScopeConfig();
 
         $this->logger = $logger;
@@ -165,11 +162,6 @@ class Data extends AbstractHelper
     }
 
  
-
-    public function mailTransportFactory()
-    {
-        return $this->mailTransportFactory;
-    }
 
     /**
      * Get an Instance of the Magento Store Manager
@@ -761,14 +753,14 @@ class Data extends AbstractHelper
     private $wizit_info_style_oneline = 'display: block; padding-top: 5px; padding-bottom: 5px;';
     private $wizit_info_style_product_list = '';
     private $wizit_info_style_product_detail = '';
-    private $wizit_info_logo_style = 'max-width: 100px; max-height: 30px; padding-top: 5px; border: none !important; vertical-align: bottom; display: inline-block;';
+    private $wizit_info_logo_style = 'max-width: 100px;width: auto;height: auto; max-height: 30px; padding-top: 5px; border: none !important; vertical-align: bottom; display: inline-block;';
     private $wizit_info_content_style = 'line-height: 35px;';
     
 
 
 
     public function getWizitMessage($type, $price, $assetRepository, $min_price = 0, $max_price = 99999, $product_id = 0){
-        $banktransferLogoUrl = $assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
+        $banktransferLogoUrl = 'https://www.wizit.money/img/plugin/wizit.png';// $assetRepository->getUrlWithParams('Wizit_Wizit::images/Group.png', []);
 
                
         // get plugin setting

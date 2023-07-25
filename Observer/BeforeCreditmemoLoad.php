@@ -1,8 +1,8 @@
 <?php
 namespace Wizit\Wizit\Observer;
 
-use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Event\Observer;
+use \Magento\Framework\Event\ObserverInterface;
+use \Magento\Framework\Event\Observer;
 use \Wizit\Wizit\Helper\Data;
 
 class BeforeCreditmemoLoad implements ObserverInterface
@@ -10,13 +10,14 @@ class BeforeCreditmemoLoad implements ObserverInterface
     //protected $_helper;
     protected $_layout;
     protected $_registry;
+    protected $_helper;
 
     public function __construct(
-        Data $helper,
+        \Wizit\Wizit\Helper\Data $helper,
         \Magento\Framework\View\LayoutInterface $layout,
         \Magento\Framework\Registry $registry
     ) {
-        $this->helper = $helper;
+        $this->_helper = $helper;
         $this->_layout = $layout;
         $this->_registry = $registry;
     }
