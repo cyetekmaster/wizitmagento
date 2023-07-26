@@ -80,7 +80,14 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
         //     ->loadByIdWithoutStore($callback_request_quote_id);
         $quote = $this->quoteRepository->get($callback_request_quote_id);
 
+        // set quote to active
+        $quote->setIsActive(true);
+
+
         $this->logger->info("callback_request_quote_id->" . $callback_request_quote_id);
+
+        $this->logger->info("set quote status to active ->" . $quote->getIsActive());
+
         $paymentMethod = $quote->getPayment();
         $additionalInformation = $paymentMethod->getAdditionalInformation();
 
