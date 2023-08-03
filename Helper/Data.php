@@ -264,7 +264,7 @@ class Data extends AbstractHelper
         } catch (\Exception $e) {
             $this->initiateWizitLogger('>>>>>>>>error: ' . $e->getMessage() . PHP_EOL);
             $this->initiateWizitLogger('--------------------------getWizitapi end------------------------------------------');
-            return $e->getMessage();
+            return 'Error: Invalid Json Format received from Wizit API. Please contact customer support in this regard!!'; // phpcs:ignore
         }
     }
 
@@ -328,10 +328,10 @@ class Data extends AbstractHelper
             $errormessage = 'Error: Looks like your Website IP Address is not white-listed in Wizit. Please connect with Wizit support team!'; // phpcs:ignore
             $apiresult = $errormessage;
 
-        } elseif (false !== $apiresult && '200' == $apiresult['responseCode']) {
+        } elseif ( !is_string($apiresult) && false !== $apiresult && is_array($apiresult) && array_key_exists('responseCode', $apiresult) && '200' == $apiresult['responseCode']) {
 
 
-        } elseif ('402' == $apiresult['responseCode'] || '412' == $apiresult['responseCode']) {
+        } elseif (!is_string($apiresult) && is_array($apiresult) && array_key_exists('responseCode', $apiresult) && ('402' == $apiresult['responseCode'] || '412' == $apiresult['responseCode'])) {
             $error = true;
             $errormessage = 'Call Transaction Limit Error: ' . $apiresult['errorCode'] . ' - ' . $apiresult['errorMessage']; // phpcs:ignore
             
