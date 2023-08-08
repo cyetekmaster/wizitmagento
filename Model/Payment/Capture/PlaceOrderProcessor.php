@@ -306,8 +306,9 @@ class PlaceOrderProcessor
 
         // set this quote status to in-active
         $quote->setIsActive(false);
-
-        $this->logger->info('wizit payment - > change quote (' . $quoteId  . ') status to (' . $quote->getIsActive() . ') and waiting for API callback.' );
+        
+        $quoteStatus = $quote->getIsActive() ? 'Active' : 'Inactive';
+        $this->logger->info('wizit payment - > change quote (' . $quoteId  . ') status to (' . $quoteStatus . ') and waiting for API callback.' );
 
         $get_api_key = $this->wizit_data_helper->getConfig('payment/wizit/api_key');
         $wzresponse = $this->wizit_data_helper->callCcheckoutsRredirectAapi($get_api_key, $data);
