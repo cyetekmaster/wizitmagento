@@ -86,7 +86,8 @@ class Success implements \Magento\Framework\App\Action\HttpGetActionInterface
 
         $this->logger->info("callback_request_quote_id->" . $callback_request_quote_id);
 
-        $this->logger->info("set quote status to active ->" . $quote->getIsActive());
+        $quoteStatus = $quote->getIsActive() ? 'Active' : 'Inactive';
+        $this->logger->info("set quote status to ->" . $quoteStatus);
 
         $paymentMethod = $quote->getPayment();
         $additionalInformation = $paymentMethod->getAdditionalInformation();
