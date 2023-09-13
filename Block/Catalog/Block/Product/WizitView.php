@@ -31,33 +31,34 @@ class WizitView
     ){
 
         if (in_array($subject->getNameInLayout(), $this->displayBlocks)){
-            $product = $subject->getProduct();
-
             
+            // get product from current session
+            $product = $subject->getProduct();            
 
+            // clear wizit info content
             $wizit_info = '';
             if(isset($product)){
 
-                $price = $product->getPrice();
-                $min_price = 0;
-                $max_price = 9999;
+                $product_price = $product->getPrice();
+                $product_min_price = 0;
+                $product_max_price = 9999;
                 
                 
                 // Simple Product
-                $price = $product->getPriceInfo()->getPrice('regular_price')->getValue();
+                $product_price = $product->getPriceInfo()->getPrice('regular_price')->getValue();
 
 
                 // Configurable product
                 if ($product->getTypeId() == 'configurable') {
                     $basePrice = $product->getPriceInfo()->getPrice('regular_price');              
-                    $price = $basePrice->getMinRegularAmount()->getValue();
+                    $product_price = $basePrice->getMinRegularAmount()->getValue();
                 }
 
                 // Bundle product
                 if ($product->getTypeId() == 'bundle') {
-                    $price = $product->getPriceInfo()->getPrice('regular_price')->getMinimalPrice()->getValue();
-                    $min_price = $product->getPriceInfo()->getPrice('final_price')->getMinimalPrice()->getValue(); 
-                    $max_price = $product->getPriceInfo()->getPrice('final_price')->getMaximalPrice()->getValue();             
+                    $product_price = $product->getPriceInfo()->getPrice('regular_price')->getMinimalPrice()->getValue();
+                    $product_min_price = $product->getPriceInfo()->getPrice('final_price')->getMinimalPrice()->getValue(); 
+                    $product_max_price = $product->getPriceInfo()->getPrice('final_price')->getMaximalPrice()->getValue();             
                 }
 
 
@@ -66,13 +67,13 @@ class WizitView
                     $usedProds = $product->getTypeInstance(true)->getAssociatedProducts($product);            
                     foreach ($usedProds as $child) {
                         if ($child->getId() != $product->getId()) {
-                                $price += $child->getPrice();
+                                $product_price += $child->getPrice();
                         }
                     }
                 }
 
 
-                $wizit_info = $this->wizit_helper->getWizitMessage('Detail',  $price, $this->assetRepository, $min_price, $max_price, $product->getId());
+                $wizit_info = $this->wizit_helper->getWizitMessage('Detail',  $product_price, $this->assetRepository, $product_min_price, $product_max_price, $product->getId());
             }
                   
             return  $html . $wizit_info; 

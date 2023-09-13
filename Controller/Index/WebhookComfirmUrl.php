@@ -29,21 +29,25 @@ class WebhookComfirmUrl extends Success
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
     ) {
-        $this->request = $request;
-        $this->session = $session;
-        $this->redirectFactory = $redirectFactory;
-        $this->messageManager = $messageManager;
-        $this->placeOrderProcessor = $placeOrderProcessor;
-        $this->cartManagement = $cartManagement;
-        $this->logger = $logger;
-        $this->quoteFactory = $quoteFactory;
-        $this->wizit_data_helper = $wizit_helper;
-        $this->order = $order;
-        $this->checkoutHelper = $checkout;
-        $this->invoiceSender = $invoiceSender;
-        $this->quoteRepository = $quoteRepository;
-        $this->productRepository = $productRepository;
-        $this->customerRepository = $customerRepository;
+        
+        parent::__construct(
+            $request,
+            $session,
+            $redirectFactory,
+            $messageManager,
+            $placeOrderProcessor,
+            $logger,
+            $quoteFactory,
+            $cartManagement,
+            $wizit_helper,
+            $order,
+            $checkout,
+            $invoiceSender,
+            $quoteRepository,
+            $productRepository,
+            $customerRepository
+        );
+        
         $this->callback_source = "WebhookComfirmUrl CALL BACK";
     }
 
