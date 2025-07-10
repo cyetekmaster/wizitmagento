@@ -800,7 +800,10 @@ class Data extends AbstractHelper
 
             if($type == 'List' && intval( $show_on_product_cat_page, 0) == 1){
                 return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_list .'">
-                                    <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /></div>';
+                                    <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" />
+                                    <span style="'. $this->wizit_info_content_style .'">&nbsp;Payments starting from&nbsp;$'. number_format($wizit_merchant_min_amount, 0, '.', ',') .
+                                    ' per week.</span>
+                                    </div>';
             }
             else if($type == 'Detail' && intval( $show_on_product_page, 0) == 1){
                 if($min_price > 0 && $max_price < 99999){
@@ -810,23 +813,23 @@ class Data extends AbstractHelper
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of&nbsp;<span id="wizit-sub-amount-price">'. $sub_amount1 . ' to ' . $sub_amount2 .
-                        '</span>&nbsp;with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;Payments starting from&nbsp;$'. number_format($wizit_merchant_min_amount, 0, '.', ',') .
+                        ' per week. <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }else{
                     // display full info
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <input type="hidden" id="wizit-sub-amount-price-productid" name="wizit-sub-amount-price-productid" value="' . $product_id . '">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of&nbsp;<span id="wizit-sub-amount-price">'. $sub_amount .
-                        '</span>&nbsp;with Wizit <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;Payments starting from&nbsp;$'. number_format($wizit_merchant_min_amount, 0, '.', ',') .
+                        ' per week. <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }
                 
             }
             else if($type == 'Cart' && intval( $show_on_cat_page, 0) == 1){
                 return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;or 4 payments of&nbsp;<span id="wizit-sub-amount-price">'. $sub_amount .'</span>&nbsp;with Wizit. 
-                        <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;Payments starting from&nbsp;$'. number_format($wizit_merchant_min_amount, 0, '.', ',') .
+                        ' per week. <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
             }            
         }
         else if(intval($wizit_is_enable, 0) == 1 ){
@@ -840,20 +843,16 @@ class Data extends AbstractHelper
                     // display full info
                     return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;is available on purchases between '
-                        . '$' . number_format(floatval($wizit_merchant_min_amount), 2, '.', ',') .' and ' 
-                        . '$' . number_format(floatval($wizit_merchant_max_amount), 2, '.', ',') . 
-                        ' <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;Payments starting from&nbsp;$'. number_format($min_price, 0, '.', ',') .
+                        ' per week. <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
                 }
                 
             }
             else if($type == 'Cart' && intval( $show_on_cat_page, 0) == 1){
                 return '<div style="'. $this->wizit_info_style_oneline . $this->wizit_info_style_product_detail .'">
                         <img style="'. $this->wizit_info_logo_style .'" src="' . $banktransferLogoUrl . '" /> 
-                        <span style="'. $this->wizit_info_content_style .'">&nbsp;is available on purchases between '
-                        . '$' . number_format(floatval($wizit_merchant_min_amount), 2, '.', ',') .' and ' 
-                        . '$' . number_format(floatval($wizit_merchant_max_amount), 2, '.', ',') . 
-                        '<a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
+                        <span style="'. $this->wizit_info_content_style .'">&nbsp;Payments starting from&nbsp;$'. number_format($min_price, 0, '.', ',') .
+                        ' per week. <a href="#" class="wizit-learn-more-popup-link">learn more</a><span></div>';
             } 
         }
 
