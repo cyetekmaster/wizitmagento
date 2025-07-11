@@ -140,19 +140,10 @@ define(
                 return window.checkoutConfig.payment.wizit.popimage;
             },
 
-            showPopup: function () {
-                var couponcodepopup = {
-                    type: 'popup',
-                    responsive: true,
-                    innerScroll: true,
-                    buttons: false,
-                    modalClass: "wz-custom-modal",
-                    clickableOverlay: true,
-                    heightStyle: "content"
-                };
-                modal(couponcodepopup, $('#popup-modal'));
-                $(".wz-custom-modal header.modal-header").appendTo("div#popup-modal");
-                $('#popup-modal').modal('openModal');
+            showPopup: function () {                
+                $('#wizit-modal-content').modal('openModal');
+                $('#wizit-modal-content').show();
+                $('#wizit-modal-content .wizit-popup-body-content').show();
             }
         });
     }
